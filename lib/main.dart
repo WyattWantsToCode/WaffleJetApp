@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:qc_collegeandcareer/calendar.dart';
+import 'package:qc_collegeandcareer/month/month_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,14 +32,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 7,
-          ),
-          itemBuilder: (context, index) {
-            return Container(
-                alignment: Alignment.center, child: Text("$index"));
-          }),
+      body:Calendar()
     );
   }
 }
+
+Widget gridTile(int index) {
+  return Container(
+    color: Colors.blue,
+    child: Text("$index"),
+  );
+}
+
+
