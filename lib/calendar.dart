@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qc_collegeandcareer/day_class.dart';
+import 'package:qc_collegeandcareer/firebase.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 DateTime? _selectedDay;
@@ -19,7 +19,8 @@ class _CalendarState extends State<Calendar> {
   void initState() {
     super.initState();
     _events = {
-      DateTime.utc(2022, 7, 9): <Event>[Event(title: "title"), Event(title: "title")]
+      mockEventOne.startTime: <Event>[mockEventOne],
+      mockEventTwo.startTime: <Event>[mockEventTwo]
     };
   }
 
@@ -68,7 +69,12 @@ class _CalendarState extends State<Calendar> {
               return listOfDayEvents(day);
             },
           ),
-          eventDetails(selectedEvent)
+          eventDetails(selectedEvent),
+          ElevatedButton(
+              onPressed: (() {
+                addEventToFirestore(mockEventOne);
+              }),
+              child: Text("Testing"))
         ],
       ),
     );

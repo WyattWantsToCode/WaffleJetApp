@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "470772611515",
+    "project_id": "qc-college-and-career",
+    "storage_bucket": "qc-college-and-career.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:470772611515:android:03f1071c8285b3e413ac9e",
+        "android_client_info": {
+          "package_name": "com.example.qc_collegeandcareer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "470772611515-d4vcn7apaima742gqs6j9jpp0koba1u0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYhR_bc5QhXohjLLMhL_usZqCtmd6rTtI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "470772611515-d4vcn7apaima742gqs6j9jpp0koba1u0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "470772611515-j750ltp7aklnnpqeii8u1gbgq2hvfsom.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.qcCollegeandcareer"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
