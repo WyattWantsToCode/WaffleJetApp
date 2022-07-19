@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qc_collegeandcareer/event_widget.dart';
 import 'package:qc_collegeandcareer/firebase.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -19,7 +20,7 @@ class _CalendarState extends State<Calendar> {
   void initState() {
     super.initState();
     _events = {
-      mockEventOne.startTime: <Event>[mockEventOne],
+      mockEventOne.startTime: <Event>[mockEventOne, mockEventOne],
       mockEventTwo.startTime: <Event>[mockEventTwo]
     };
   }
@@ -69,14 +70,8 @@ class _CalendarState extends State<Calendar> {
               return listOfDayEvents(day);
             },
           ),
-          eventDetails(selectedEvent),
-          ElevatedButton(
-              onPressed: (() {
-                addEventToFirestore(mockEventOne);
-              }),
-              child: Text("Testing"))
-        ],
-      ),
+          Column(children: newEventList(selectedEvent))])
+         
     );
   }
 }
@@ -90,4 +85,12 @@ Widget eventDetails(List<Event> eventList) {
     }
     return Text("data");
   }
+}
+
+List<Widget> newEventList(List<Event> eventList) {
+  List<Widget> list = <Widget>[];
+  for (var event in eventList) {
+    list.add(specificEvent(event));
+  }
+  return list;
 }

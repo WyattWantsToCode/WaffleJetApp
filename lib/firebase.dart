@@ -4,12 +4,12 @@ var db = FirebaseFirestore.instance;
 
 Event mockEventOne = Event(
     id: "id",
-    title: "title",
+    title: "Crew night",
     startTime: DateTime.utc(2022, 7, 17),
     description: "description");
 Event mockEventTwo = Event(
     id: "2 id",
-    title: "2 title",
+    title: "Fun n' Mud",
     startTime: DateTime.utc(2022, 7, 18),
     description: "2 description");
 
