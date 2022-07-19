@@ -44,7 +44,9 @@ Event mapToEvent(Map<String, dynamic> map) {
 }
 
 void addEventToFirestore(Event event) {
-  db.collection("Events").doc(event.id).set((eventToMap(event)));
+
+  FirebaseFirestore.instance.collection("Events").doc(event.id).set((eventToMap(event)));
+
 }
 
 Future<List<Event>> getAllEventsFromDB() async {

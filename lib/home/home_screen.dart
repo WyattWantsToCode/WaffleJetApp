@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
+import 'package:qc_collegeandcareer/create_events/create_event_screen.dart';
 import 'package:qc_collegeandcareer/firebase.dart';
 import 'package:qc_collegeandcareer/storage.dart';
 
@@ -13,6 +14,13 @@ class HomeScreen extends StatelessWidget {
       body: Column(children: [
         welcomeBanner(context),
         eventSection(context),
+        ElevatedButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return CreateEventScreen();
+              }));
+            },
+            child: Text("Event Create"))
       ]),
     );
   }
@@ -73,9 +81,7 @@ Widget homeEvent(BuildContext context, Event event) {
                   child: Text("Error"),
                 );
               } else if (snapshot.hasData) {
-                return Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
+                return Stack(alignment: Alignment.bottomCenter, children: [
                   Opacity(
                     opacity: .75,
                     child: Container(
@@ -95,10 +101,14 @@ Widget homeEvent(BuildContext context, Event event) {
                     width: width,
                     height: 50,
                     decoration: BoxDecoration(
-                    color: colorTransparent,
-                    borderRadius: BorderRadius.all(Radius.circular(25))),
-                    child: Center(child: Text("Tesing", style: styleSubtitle,)),
-                    )
+                        color: colorTransparent,
+                        borderRadius: BorderRadius.all(Radius.circular(25))),
+                    child: Center(
+                        child: Text(
+                      event.title,
+                      style: styleSubtitle,
+                    )),
+                  )
                 ]);
               }
             }

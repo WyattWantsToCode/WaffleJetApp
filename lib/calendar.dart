@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qc_collegeandcareer/event_widget.dart';
+
 import 'package:qc_collegeandcareer/firebase.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -90,7 +90,7 @@ Widget eventDetails(List<Event> eventList) {
 List<Widget> newEventList(List<Event> eventList) {
   List<Widget> list = <Widget>[];
   for (var event in eventList) {
-    list.add(specificEvent(event));
+    list.add(Text("data"));
   }
   return list;
 }

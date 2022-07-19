@@ -45,12 +45,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyBt7b5_7Sz3HwKjNmOIlt5RhVqLy8VK2Bo',
-    appId: '1:470772611515:web:725297d7ddfdcac413ac9e',
+    appId: '1:470772611515:web:4845f23777cd4b3e13ac9e',
     messagingSenderId: '470772611515',
     projectId: 'qc-college-and-career',
     authDomain: 'qc-college-and-career.firebaseapp.com',
     storageBucket: 'qc-college-and-career.appspot.com',
-    measurementId: 'G-YR1PDBH31X',
+    measurementId: 'G-98TP7WTYMX',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
