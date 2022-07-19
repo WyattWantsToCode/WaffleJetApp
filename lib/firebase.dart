@@ -3,12 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 var db = FirebaseFirestore.instance;
 
 Event mockEventOne = Event(
-    id: "id",
+    id: "1",
     title: "Crew night",
     startTime: DateTime.utc(2022, 7, 17),
     description: "description");
 Event mockEventTwo = Event(
-    id: "2 id",
+    id: "2",
     title: "Fun n' Mud",
     startTime: DateTime.utc(2022, 7, 18),
     description: "2 description");

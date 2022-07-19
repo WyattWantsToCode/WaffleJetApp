@@ -65,7 +65,7 @@ Widget homeEvent(BuildContext context, Event event) {
   return Padding(
       padding: const EdgeInsets.symmetric(vertical: 40),
       child: FutureBuilder(
-          future: getImageURL(),
+          future: getImageURL(event),
           builder: ((context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasError) {
