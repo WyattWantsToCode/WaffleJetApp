@@ -45,7 +45,7 @@ Event mapToEvent(Map<String, dynamic> map) {
 
 void addEventToFirestore(Event event) {
 
-  FirebaseFirestore.instance.collection("Events").doc(event.id).set((eventToMap(event)));
+   db.collection("Events").doc(event.id).set((eventToMap(event)));
 
 }
 

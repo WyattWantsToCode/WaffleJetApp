@@ -20,7 +20,12 @@ class HomeScreen extends StatelessWidget {
                 return CreateEventScreen();
               }));
             },
-            child: Text("Event Create"))
+            child: Text("Event Create")),
+        ElevatedButton(
+            onPressed: () {
+              addEventToFirestore(mockEventOne);
+            },
+            child: Text("Place"))
       ]),
     );
   }

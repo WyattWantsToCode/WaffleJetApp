@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/calendar.dart';
@@ -5,13 +6,13 @@ import 'package:qc_collegeandcareer/firebase_options.dart';
 import 'package:qc_collegeandcareer/home/home_screen.dart';
 import 'package:qc_collegeandcareer/month/month_view.dart';
 
-var app;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(const MyApp());
 }
 

@@ -14,7 +14,7 @@ Future<String> getImageURL(Event event) async {
   return string;
 }
 
-/*Future<String> selectPicture(ImageSource source) async {
+Future<String> selectPicture(ImageSource source) async {
   XFile? image = await ImagePicker().pickImage(source: source);
   return image?.path as String;
 }
@@ -28,4 +28,4 @@ void uploadToStorage(String id) async {
     
     );
 }
-*/
+

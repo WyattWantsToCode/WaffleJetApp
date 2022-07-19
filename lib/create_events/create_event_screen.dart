@@ -31,6 +31,11 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               child: Text("Select Date")),
           ElevatedButton(
               onPressed: () {
+                uploadToStorage(uuid);
+              },
+              child: Text("picture")),
+          TextButton(
+              onPressed: () {
                 addEventToFirestore(Event(
                     id: uuid,
                     title: titleController.text,
