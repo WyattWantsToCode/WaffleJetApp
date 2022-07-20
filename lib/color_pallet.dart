@@ -9,3 +9,4 @@ Color colorTransparent = Color.fromRGBO(57, 91, 100, 50);
 
 TextStyle styleTitle = TextStyle(color: colorFirst, fontSize: 48);
 TextStyle styleSubtitle = TextStyle(color: colorFirst, fontSize: 24);
+TextStyle styleBody = TextStyle(color: colorFirst, fontSize: 18);

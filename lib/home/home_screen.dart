@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:qc_collegeandcareer/appbar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/create_events/create_event_screen.dart';
 import 'package:qc_collegeandcareer/firebase.dart';
+import 'package:qc_collegeandcareer/specific_post/specific_event_screen.dart';
 import 'package:qc_collegeandcareer/storage.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -10,23 +12,35 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       backgroundColor: colorFourth,
-      body: Column(children: [
-        welcomeBanner(context),
-        eventSection(context),
-        ElevatedButton(
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return CreateEventScreen();
-              }));
-            },
-            child: Text("Event Create")),
-        ElevatedButton(
-            onPressed: () {
-              addEventToFirestore(mockEventOne);
-            },
-            child: Text("Place"))
-      ]),
+      body: SafeArea(
+        child: Stack(
+          alignment: Alignment.topCenter,
+          children:[
+            appBar(false)
+            ,
+          
+           SingleChildScrollView(
+            child: Column(children: [
+              welcomeBanner(context),
+              eventSection(context),
+              /*ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return CreateEventScreen();
+                    }));
+                  },
+                  child: Text("Event Create")),
+              ElevatedButton(
+                  onPressed: () {
+                    addEventToFirestore(mockEventOne);
+                  },
+                  child: Text("Place"))*/
+            ]),
+          ),]
+        ),
+      ),
     );
   }
 }
@@ -92,6 +106,8 @@ Widget eventSection(BuildContext context) {
   );
 }
 
+String imageString = "";
+
 Widget homeEvent(BuildContext context, Event event) {
   double width = (MediaQuery.of(context).size.width / 2) - 40;
   double height = 200;
@@ -106,35 +122,56 @@ Widget homeEvent(BuildContext context, Event event) {
                   child: Text("Error"),
                 );
               } else if (snapshot.hasData) {
-                return Stack(alignment: Alignment.bottomCenter, children: [
-                  Opacity(
-                    opacity: .75,
-                    child: Container(
-                      height: height,
-                      width: width,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                snapshot.data as String,
-                              ),
-                              fit: BoxFit.cover),
-                          color: colorThird,
-                          borderRadius: BorderRadius.all(Radius.circular(25))),
+                imageString = snapshot.data as String;
+                DecorationImage image = DecorationImage(
+                    image: NetworkImage(
+                      imageString,
                     ),
-                  ),
-                  Container(
-                    width: width,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: colorTransparent,
-                        borderRadius: BorderRadius.all(Radius.circular(25))),
-                    child: Center(
-                        child: Text(
-                      event.title,
-                      style: styleSubtitle,
-                    )),
-                  )
-                ]);
+                    fit: BoxFit.cover);
+
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return SpecificEventScreen(event: event, image: image);
+                    }));
+                  },
+                  child: Stack(alignment: Alignment.bottomCenter, children: [
+                    Hero(
+                      tag: event.id + "image",
+                      child: Opacity(
+                        opacity: .75,
+                        child: Container(
+                          height: height,
+                          width: width,
+                          decoration: BoxDecoration(
+                              image: image,
+                              color: colorThird,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25))),
+                        ),
+                      ),
+                    ),
+                    Hero(
+                      tag: event.id + "title",
+                      child: Container(
+                        width: width,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: colorTransparent,
+                            borderRadius: BorderRadius.all(Radius.circular(25))),
+                        child: Center(
+                            child: Material(
+                              color: Colors.transparent,
+                              child: Text(
+                                event.title,
+                                style: styleSubtitle,
+                              ),
+                            )),
+                      ),
+                    )
+                  ]),
+                );
               }
             }
 
