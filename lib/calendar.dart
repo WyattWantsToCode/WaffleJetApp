@@ -1,41 +1,83 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:qc_collegeandcareer/appbar.dart';
+import 'package:qc_collegeandcareer/color_pallet.dart';
 
 import 'package:qc_collegeandcareer/firebase.dart';
+import 'package:qc_collegeandcareer/navigation_drawer.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+class CalendarScreen extends StatefulWidget {
+  CalendarScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CalendarScreen> createState() => _CalendarScreenState();
+}
+
+class _CalendarScreenState extends State<CalendarScreen> {
+  GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: colorFourth,
+        key: globalKey,
+        drawer: drawer(context),
+        body: SafeArea(
+          child: Column(
+            children: [
+              appBar(false, context, globalKey),
+              FutureBuilder(
+                future: getAllEventsFromDB(),
+                builder: ((context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasError) {
+                      return const Center(
+                        child: Text("Error"),
+                      );
+                    } else if (snapshot.hasData) {
+                      return Calendar(
+                        eventMap: getAllEventMap(snapshot.data as List<Event>),
+                      );
+                    }
+                  }
+        
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }),
+              ),
+            ],
+          ),
+        ));
+  }
+}
+
 DateTime? _selectedDay;
-DateTime? _focusedDay;
+DateTime _focusedDay = DateTime.now();
 var _calendarFormat = CalendarFormat.month;
 
 class Calendar extends StatefulWidget {
-  Calendar({Key? key}) : super(key: key);
+  Calendar({Key? key, required this.eventMap}) : super(key: key);
+
+  final Map<DateTime, List<Event>> eventMap;
 
   @override
   State<Calendar> createState() => _CalendarState();
 }
 
 class _CalendarState extends State<Calendar> {
-  late Map<DateTime, List<Event>> _events;
-
-  void initState() {
-    super.initState();
-    _events = {
-      mockEventOne.startTime: <Event>[mockEventOne, mockEventOne],
-      mockEventTwo.startTime: <Event>[mockEventTwo]
-    };
-  }
-
   List<Event> listOfDayEvents(DateTime dateTime) {
-    return _events[dateTime] ?? [];
+    return widget.eventMap[dateTime] ?? [];
   }
 
   List<Event> selectedEvent = <Event>[];
   bool showEvent = false;
+  var markerEvent;
 
   void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     if (!isSameDay(_selectedDay, selectedDay)) {
       setState(() {
-        _focusedDay = focusedDay;
+        _focusedDay = selectedDay;
         _selectedDay = selectedDay;
         selectedEvent = listOfDayEvents(focusedDay);
       });
@@ -45,52 +87,118 @@ class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        children: [
-          TableCalendar(
-            firstDay: DateTime.utc(2010, 10, 16),
-            lastDay: DateTime.utc(2030, 3, 14),
-            focusedDay: DateTime.now(),
-            selectedDayPredicate: (day) {
-              return isSameDay(_selectedDay, day);
-            },
-            onDaySelected: (selectedDay, focusedDay) {
-              onDaySelected(selectedDay, focusedDay);
-            },
-            calendarFormat: _calendarFormat,
-            onFormatChanged: (format) {
-              setState(() {
-                _calendarFormat = format;
-              });
-            },
-            onPageChanged: (focusedDay) {
-              _focusedDay = focusedDay;
-            },
-            eventLoader: (day) {
-              return listOfDayEvents(day);
-            },
-          ),
-          Column(children: newEventList(selectedEvent))])
-         
-    );
+        width: double.infinity,
+        height: 500,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: TableCalendar(
+            shouldFillViewport: (_calendarFormat == CalendarFormat.month)? true : false,
+      firstDay: DateTime.utc(2010, 10, 16),
+      lastDay: DateTime.utc(2030, 3, 14),
+      focusedDay: _focusedDay,
+      selectedDayPredicate: (day) {
+          return isSameDay(_selectedDay, day);
+      },
+      onDaySelected: (selectedDay, focusedDay) {
+          onDaySelected(selectedDay, focusedDay);
+      },
+      calendarFormat: _calendarFormat,
+      onFormatChanged: (format) {
+          setState(() {
+            _calendarFormat = format;
+          });
+      },
+      onPageChanged: (focusedDay) {
+          _focusedDay = focusedDay;
+      },
+      eventLoader: (day) {
+          markerEvent = day;
+          return listOfDayEvents(day);
+      },
+      calendarStyle: calendarStyle(),
+      headerStyle: headerStyle(),
+      daysOfWeekStyle: daysOfWeekStyle(),
+      daysOfWeekHeight: 40,
+      
+      calendarBuilders: CalendarBuilders(
+          markerBuilder: (context, day, events) {
+            Map<String, Color> colorMap = {
+              "event": Colors.yellow,
+              "special": Colors.blue
+            };
+            if (events.isEmpty) return SizedBox();
+            return ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: events.length,
+                itemBuilder: (context, index) {
+                  Event currentEvent = events[index] as Event;
+                  return Container(
+                    margin: EdgeInsets.only(top: 40),
+                    child: Padding(
+                      padding: const EdgeInsets.all(1.0),
+                      child: Container(
+                        width: 10,
+                        height: 10,
+                        decoration: BoxDecoration(
+                            color: colorMap[currentEvent.tag],
+                            shape: BoxShape.circle),
+                      ),
+                    ),
+                  );
+                });
+          },
+      ),
+    ),
+        ));
   }
 }
 
-Widget eventDetails(List<Event> eventList) {
-  if (eventList.isEmpty) {
-    return Text("Nothing today");
-  } else {
-    for (var event in eventList) {
-      return Text(event.title);
-    }
-    return Text("data");
-  }
+CalendarStyle calendarStyle() {
+  return CalendarStyle(
+    defaultTextStyle: styleSubtitle,
+    todayTextStyle: styleSubtitle,
+    disabledTextStyle: styleSubtitle,
+    selectedTextStyle: styleSubtitle,
+    weekendTextStyle: styleSubtitle,
+    outsideTextStyle: styleSubtitle.apply(fontSizeDelta: -5, color: colorSecond.withOpacity(.6)),
+    
+    cellMargin: EdgeInsets.all(0),
+    cellPadding: EdgeInsets.all(10),
+    selectedDecoration: BoxDecoration(
+        color: colorSecond.withOpacity(.6), shape: BoxShape.circle),
+    todayDecoration:
+        BoxDecoration(color: colorTransparent, shape: BoxShape.circle),
+  );
 }
 
-List<Widget> newEventList(List<Event> eventList) {
-  List<Widget> list = <Widget>[];
-  for (var event in eventList) {
-    list.add(Text("data"));
-  }
-  return list;
+HeaderStyle headerStyle() {
+  return HeaderStyle(
+      titleTextStyle: styleSubtitle,
+      leftChevronIcon: Icon(
+        Icons.chevron_left_rounded,
+        color: colorSecond,
+        size: 40,
+      ),
+      rightChevronIcon: Icon(
+        Icons.chevron_right_rounded,
+        color: colorSecond,
+        size: 40,
+      ),
+      formatButtonShowsNext: false,
+      formatButtonTextStyle: styleBody,
+      formatButtonDecoration: BoxDecoration(
+          border: Border.fromBorderSide(BorderSide(
+            color: colorSecond,
+          )),
+          borderRadius: const BorderRadius.all(Radius.circular(12.0))));
+}
+
+DaysOfWeekStyle daysOfWeekStyle() {
+  return DaysOfWeekStyle(
+    
+    weekdayStyle: styleBody,
+    weekendStyle: styleBody,
+    
+  );
 }
