@@ -10,7 +10,7 @@ import 'package:qc_collegeandcareer/firebase.dart';
 final storage = FirebaseStorage.instance.ref();
 
 Future<String> getImageURL(Event event) async {
-  String string = await storage.child("1d3b94d0-079c-11ed-9580-8145ce3ac963").getDownloadURL();
+  String string = await storage.child(event.id).getDownloadURL();
   return string;
 }
 

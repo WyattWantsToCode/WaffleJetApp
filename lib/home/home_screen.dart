@@ -59,13 +59,33 @@ Widget eventSection(BuildContext context) {
             style: styleTitle,
           )),
         ),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            homeEvent(context, mockEventOne),
-            homeEvent(context, mockEventTwo)
-          ],
+        FutureBuilder(
+          future: getEventsByTag("event"),
+          builder: ((context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasError) {
+                return const Center(
+                  child: Text("Error"),
+                );
+              } else if (snapshot.hasData) {
+                List<Widget> widgetList = <Widget>[];
+
+                for (var event in snapshot.data as List<Event>) {
+                  widgetList.add(homeEvent(context, event));
+                }
+
+                return Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: widgetList,
+                );
+              }
+            }
+
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }),
         )
       ],
     ),

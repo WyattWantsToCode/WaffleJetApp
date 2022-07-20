@@ -15,6 +15,7 @@ class CreateEventScreen extends StatefulWidget {
 class _CreateEventScreenState extends State<CreateEventScreen> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController tagController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +25,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
         children: [
           textInputField("Title", titleController),
           textInputField("Description", descriptionController),
+          textInputField("tag", tagController),
           ElevatedButton(
               onPressed: () {
                 selectDate(context);
@@ -40,7 +42,9 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                     id: uuid,
                     title: titleController.text,
                     startTime: selectedDate,
-                    description: descriptionController.text));
+                    description: descriptionController.text,
+                    tag: tagController.text
+                    ));
               },
               child: Text("place")),
         ],
