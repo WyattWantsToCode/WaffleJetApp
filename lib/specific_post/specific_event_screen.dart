@@ -38,7 +38,7 @@ class _SpecificEventScreenState extends State<SpecificEventScreen> {
             
             Column(
               children: [
-                appBar(true, context),
+                appBar(true, context, GlobalKey()),
                 Column(children: [
                 Hero(
                   tag: widget.event.id + "image",

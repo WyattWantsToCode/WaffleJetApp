@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
+import 'package:qc_collegeandcareer/home/home_screen.dart';
 
-Widget appBar(bool popable, BuildContext context) {
+Widget appBar(bool popable, BuildContext context, GlobalKey<ScaffoldState> key) {
   return Row(
     mainAxisSize: MainAxisSize.max,
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      popable ? backArrow(context) : hamburger(context),
+      popable ? backArrow(context) : hamburger(context, key),
       popable ? settingsIcon(context) : settingsIcon(context),
     ],
   );
@@ -14,9 +15,7 @@ Widget appBar(bool popable, BuildContext context) {
 
 Widget settingsIcon(BuildContext context) {
   return TextButton(
-    onPressed: () {
-      
-    },
+    onPressed: () {},
     child: SizedBox(
       width: 70,
       height: 65,
@@ -32,10 +31,10 @@ Widget settingsIcon(BuildContext context) {
   );
 }
 
-Widget hamburger(BuildContext context) {
+Widget hamburger(BuildContext context, GlobalKey<ScaffoldState> key) {
   return TextButton(
     onPressed: () {
-      
+      key.currentState!.openDrawer();
     },
     child: SizedBox(
       width: 70,

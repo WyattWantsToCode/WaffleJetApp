@@ -1,27 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/appbar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
-import 'package:qc_collegeandcareer/create_events/create_event_screen.dart';
+
 import 'package:qc_collegeandcareer/firebase.dart';
+import 'package:qc_collegeandcareer/navigation_drawer.dart';
 import 'package:qc_collegeandcareer/specific_post/specific_event_screen.dart';
 import 'package:qc_collegeandcareer/storage.dart';
+import 'package:uuid/uuid.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  GlobalKey<ScaffoldState> globalKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      key: globalKey,
+      drawer: drawer(context),
       backgroundColor: colorFourth,
       body: SafeArea(
-        child: Stack(
-          alignment: Alignment.topCenter,
-          children:[
-            appBar(false, context)
-            ,
-          
-           SingleChildScrollView(
+        child: Stack(alignment: Alignment.topCenter, children: [
+          SingleChildScrollView(
             child: Column(children: [
               welcomeBanner(context),
               eventSection(context),
@@ -38,8 +43,9 @@ class HomeScreen extends StatelessWidget {
                   },
                   child: Text("Place"))*/
             ]),
-          ),]
-        ),
+          ),
+          appBar(false, context, globalKey)
+        ]),
       ),
     );
   }
@@ -159,15 +165,16 @@ Widget homeEvent(BuildContext context, Event event) {
                         height: 50,
                         decoration: BoxDecoration(
                             color: colorTransparent,
-                            borderRadius: BorderRadius.all(Radius.circular(25))),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(25))),
                         child: Center(
                             child: Material(
-                              color: Colors.transparent,
-                              child: Text(
-                                event.title,
-                                style: styleSubtitle,
-                              ),
-                            )),
+                          color: Colors.transparent,
+                          child: Text(
+                            event.title,
+                            style: styleSubtitle,
+                          ),
+                        )),
                       ),
                     )
                   ]),
