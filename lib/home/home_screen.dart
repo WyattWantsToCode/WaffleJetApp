@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
         child: Stack(
           alignment: Alignment.topCenter,
           children:[
-            appBar(false)
+            appBar(false, context)
             ,
           
            SingleChildScrollView(
