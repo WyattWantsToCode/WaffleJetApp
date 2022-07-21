@@ -24,34 +24,46 @@ class _CalendarScreenState extends State<CalendarScreen> {
         key: globalKey,
         drawer: drawer(context),
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                appBar(false, context, globalKey),
-                FutureBuilder(
-                  future: getAllEventsFromDB(),
-                  builder: ((context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      if (snapshot.hasError) {
-                        return const Center(
-                          child: Text("Error"),
-                        );
-                      } else if (snapshot.hasData) {
-                        return Calendar(
-                          eventMap: getAllEventMap(snapshot.data as List<Event>),
-                        );
-                      }
-                    }
-                      
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }),
+          child: Stack(
+            children: [
+              
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      width: double.infinity,
+                      height: 75,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 25),
+                      child: FutureBuilder(
+                        future: getAllEventsFromDB(),
+                        builder: ((context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.done) {
+                            if (snapshot.hasError) {
+                              return const Center(
+                                child: Text("Error"),
+                              );
+                            } else if (snapshot.hasData) {
+                              return Calendar(
+                                eventMap: getAllEventMap(snapshot.data as List<Event>),
+                              );
+                            }
+                          }
+                            
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }),
+                      ),
+                    ),
+                  ],
                 ),
-                
-                 
-              ],
-            ),
+              ),
+              appBar(false, context, globalKey),
+              
+               
+            ],
           ),
         ));
   }
@@ -100,6 +112,7 @@ class _CalendarState extends State<Calendar> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TableCalendar(
                 shouldFillViewport: (_calendarFormat == CalendarFormat.month)? false : false,
+                
           firstDay: DateTime.utc(2010, 10, 16),
           lastDay: DateTime.utc(2030, 3, 14),
           focusedDay: _focusedDay,

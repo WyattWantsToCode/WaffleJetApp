@@ -27,22 +27,14 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: Stack(alignment: Alignment.topCenter, children: [
           SingleChildScrollView(
-            child: Column(children: [
-              welcomeBanner(context),
-              eventSection(context),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {
-                      return CreateEventScreen();
-                    }));
-                  },
-                  child: Text("Event Create")),
-              ElevatedButton(
-                  onPressed: () {
-                    addEventToFirestore(mockEventOne);
-                  },
-                  child: Text("Place"))
-            ]),
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 25),
+              child: Column(children: [
+                welcomeBanner(context),
+                eventSection(context),
+                
+              ]),
+            ),
           ),
           appBar(false, context, globalKey)
         ]),

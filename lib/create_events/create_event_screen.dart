@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/firebase.dart';
 import 'package:qc_collegeandcareer/storage.dart';
 import 'package:uuid/uuid.dart';
@@ -21,33 +22,36 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   Widget build(BuildContext context) {
     String uuid = Uuid().v1();
     return Scaffold(
-      body: Column(
-        children: [
-          textInputField("Title", titleController),
-          textInputField("Description", descriptionController),
-          textInputField("tag", tagController),
-          ElevatedButton(
-              onPressed: () {
-                selectDate(context);
-              },
-              child: Text("Select Date")),
-          ElevatedButton(
-              onPressed: () {
-                uploadToStorage(uuid);
-              },
-              child: Text("picture")),
-          TextButton(
-              onPressed: () {
-                addEventToFirestore(Event(
-                    id: uuid,
-                    title: titleController.text,
-                    startTime: selectedDate,
-                    description: descriptionController.text,
-                    tag: tagController.text
-                    ));
-              },
-              child: Text("place")),
-        ],
+      backgroundColor: colorFourth,
+      body: SafeArea(
+        child: Column(
+          children: [
+            textInputField("Title", titleController),
+            textInputField("Description", descriptionController),
+            textInputField("tag", tagController),
+            ElevatedButton(
+                onPressed: () {
+                  selectDate(context);
+                },
+                child: Text("Select Date")),
+            ElevatedButton(
+                onPressed: () {
+                  uploadToStorage(uuid);
+                },
+                child: Text("picture")),
+            TextButton(
+                onPressed: () {
+                  addEventToFirestore(Event(
+                      id: uuid,
+                      title: titleController.text,
+                      startTime: selectedDate,
+                      description: descriptionController.text,
+                      tag: tagController.text
+                      ));
+                },
+                child: Text("place")),
+          ],
+        ),
       ),
     );
   }
@@ -55,6 +59,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
 
 Widget textInputField(String label, TextEditingController controller) {
   return TextField(
+    
+    style: styleSubtitle,
     controller: controller,
     decoration: InputDecoration(labelText: label),
     maxLines: null,
