@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/home/home_screen.dart';
 
-Widget appBar(bool popable, BuildContext context, GlobalKey<ScaffoldState> key) {
+Widget appBar(
+    bool popable, BuildContext context, GlobalKey<ScaffoldState> key) {
   return Row(
     mainAxisSize: MainAxisSize.max,
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -13,18 +14,26 @@ Widget appBar(bool popable, BuildContext context, GlobalKey<ScaffoldState> key) 
   );
 }
 
+double width = 75;
+double height = 75;
+
 Widget settingsIcon(BuildContext context) {
-  return TextButton(
-    onPressed: () {},
-    child: SizedBox(
-      width: 70,
-      height: 65,
+  return Container(
+    decoration: BoxDecoration(
+        color: colorFourth,
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25))),
+    width: width,
+    height: height,
+    child: TextButton(
+      onPressed: () {},
       child: Hero(
         tag: "settings",
-        child: Icon(
-          Icons.settings,
-          color: colorSecond,
-          size: 30,
+        child: Center(
+          child: Icon(
+            Icons.settings,
+            color: colorSecond,
+            size: 30,
+          ),
         ),
       ),
     ),
@@ -32,13 +41,16 @@ Widget settingsIcon(BuildContext context) {
 }
 
 Widget hamburger(BuildContext context, GlobalKey<ScaffoldState> key) {
-  return TextButton(
-    onPressed: () {
-      key.currentState!.openDrawer();
-    },
-    child: SizedBox(
-      width: 70,
-      height: 65,
+  return Container(
+    decoration: BoxDecoration(
+        color: colorFourth,
+        borderRadius: BorderRadius.only(bottomRight: Radius.circular(25))),
+    width: width,
+    height: height,
+    child: TextButton(
+      onPressed: (() {
+        key.currentState!.openDrawer();
+      }),
       child: Center(
         child: Container(
           height: 25,
@@ -68,13 +80,16 @@ Widget ham() {
 }
 
 Widget backArrow(BuildContext context) {
-  return TextButton(
-    onPressed: () {
-      Navigator.pop(context);
-    },
-    child: SizedBox(
-      width: 70,
-      height: 65,
+  return Container(
+    decoration: BoxDecoration(
+        color: colorFourth,
+        borderRadius: BorderRadius.only(bottomRight: Radius.circular(25))),
+    width: width,
+    height: height,
+    child: TextButton(
+      onPressed: () {
+        Navigator.pop(context);
+      },
       child: Center(
         child: Container(
           width: 30,

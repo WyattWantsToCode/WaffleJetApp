@@ -57,6 +57,8 @@ Widget textInputField(String label, TextEditingController controller) {
   return TextField(
     controller: controller,
     decoration: InputDecoration(labelText: label),
+    maxLines: null,
+    keyboardType: TextInputType.multiline,
   );
 }
 
