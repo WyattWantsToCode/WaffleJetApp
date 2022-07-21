@@ -108,11 +108,14 @@ Widget eventCard(BuildContext context, Event event) {
                                 decoration: BoxDecoration(color: colorThird.withOpacity(.2), shape: BoxShape.circle),),
                             ),
                           ),
-                             Container(
-                            
-                            width: 9,
-                            height: 9,
-                            decoration: BoxDecoration(color: colorMap[event.tag], shape: BoxShape.circle),),
+                             Hero(
+                              tag: event.id+"tag",
+                               child: Container(
+                                                         
+                                                         width: 9,
+                                                         height: 9,
+                                                         decoration: BoxDecoration(color: colorMap[event.tag], shape: BoxShape.circle),),
+                             ),
                           ]
                         ))
                     ]),

@@ -53,7 +53,7 @@ class _SpecificEventScreenState extends State<SpecificEventScreen> {
                           borderRadius: BorderRadius.all(Radius.circular(0))),
                     ),
                   ),
-                ),
+                ),Hero(tag: widget.event.id+"tag", child: Container(width: double.infinity, height: 5, color: colorMap[widget.event.tag],)),
                 Hero(
                   tag: widget.event.id + "title",
                   child: Container(
