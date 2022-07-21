@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:qc_collegeandcareer/appbar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
-import 'package:qc_collegeandcareer/event_gridview.dart';
+import 'package:qc_collegeandcareer/events/event_gridview.dart';
 
 import 'package:qc_collegeandcareer/firebase.dart';
 import 'package:qc_collegeandcareer/navigation_drawer.dart';
@@ -155,7 +155,7 @@ class _CalendarState extends State<Calendar> {
           ),
         ),
             )),
-            eventRow(context, selectedEvent)
+            eventWrap(context, selectedEvent)
       ],
     );
   }
