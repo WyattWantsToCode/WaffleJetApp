@@ -31,8 +31,6 @@ class Event {
 }
 
 Map<String, dynamic> eventToMap(Event event) {
- 
-
   return {
     "id": event.id,
     "title": event.title,
@@ -43,11 +41,11 @@ Map<String, dynamic> eventToMap(Event event) {
 }
 
 Event mapToEvent(Map<String, dynamic> map) {
-
   return Event(
       id: map["id"],
       title: map["title"],
-      startTime: DateTime.fromMicrosecondsSinceEpoch(map["startTime"].microsecondsSinceEpoch),
+      startTime: DateTime.fromMicrosecondsSinceEpoch(
+          map["startTime"].microsecondsSinceEpoch),
       description: map["description"],
       tag: map["tag"]);
 }
@@ -80,4 +78,27 @@ Future<List<Event>> getEventsByTag(String tag) async {
   });
 
   return list;
+}
+
+Map<DateTime, List<Event>> getAllEventMap(List<Event> allEventList) {
+  Map<DateTime, List<Event>> map = {
+    DateTime.utc(2014, 7, 12): <Event>[mockEventOne]
+  };
+  for (var event in allEventList) {
+    DateTime dateTime = DateTime.utc(
+        event.startTime.year, event.startTime.month, event.startTime.day);
+    List<Event> list = <Event>[];
+    list.add(event);
+
+    if (map.containsKey(dateTime)) {
+      list = map[dateTime] as List<Event>;
+      list.add(event);
+      map.update(dateTime, (value) {
+        return list;
+      });
+    } else {
+      map.addAll({dateTime: list});
+    }
+  }
+  return map;
 }

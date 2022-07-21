@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:qc_collegeandcareer/appbar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
+import 'package:qc_collegeandcareer/event_gridview.dart';
 
 import 'package:qc_collegeandcareer/firebase.dart';
 import 'package:qc_collegeandcareer/navigation_drawer.dart';
@@ -23,30 +24,34 @@ class _CalendarScreenState extends State<CalendarScreen> {
         key: globalKey,
         drawer: drawer(context),
         body: SafeArea(
-          child: Column(
-            children: [
-              appBar(false, context, globalKey),
-              FutureBuilder(
-                future: getAllEventsFromDB(),
-                builder: ((context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    if (snapshot.hasError) {
-                      return const Center(
-                        child: Text("Error"),
-                      );
-                    } else if (snapshot.hasData) {
-                      return Calendar(
-                        eventMap: getAllEventMap(snapshot.data as List<Event>),
-                      );
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                appBar(false, context, globalKey),
+                FutureBuilder(
+                  future: getAllEventsFromDB(),
+                  builder: ((context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasError) {
+                        return const Center(
+                          child: Text("Error"),
+                        );
+                      } else if (snapshot.hasData) {
+                        return Calendar(
+                          eventMap: getAllEventMap(snapshot.data as List<Event>),
+                        );
+                      }
                     }
-                  }
-        
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }),
-              ),
-            ],
+                      
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }),
+                ),
+                
+                 
+              ],
+            ),
           ),
         ));
   }
@@ -55,6 +60,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
 DateTime? _selectedDay;
 DateTime _focusedDay = DateTime.now();
 var _calendarFormat = CalendarFormat.month;
+List<Event> selectedEvent = <Event>[];
 
 class Calendar extends StatefulWidget {
   Calendar({Key? key, required this.eventMap}) : super(key: key);
@@ -70,7 +76,7 @@ class _CalendarState extends State<Calendar> {
     return widget.eventMap[dateTime] ?? [];
   }
 
-  List<Event> selectedEvent = <Event>[];
+  
   bool showEvent = false;
   var markerEvent;
 
@@ -86,71 +92,72 @@ class _CalendarState extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: double.infinity,
-        height: 500,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: TableCalendar(
-            shouldFillViewport: (_calendarFormat == CalendarFormat.month)? true : false,
-      firstDay: DateTime.utc(2010, 10, 16),
-      lastDay: DateTime.utc(2030, 3, 14),
-      focusedDay: _focusedDay,
-      selectedDayPredicate: (day) {
-          return isSameDay(_selectedDay, day);
-      },
-      onDaySelected: (selectedDay, focusedDay) {
-          onDaySelected(selectedDay, focusedDay);
-      },
-      calendarFormat: _calendarFormat,
-      onFormatChanged: (format) {
-          setState(() {
-            _calendarFormat = format;
-          });
-      },
-      onPageChanged: (focusedDay) {
-          _focusedDay = focusedDay;
-      },
-      eventLoader: (day) {
-          markerEvent = day;
-          return listOfDayEvents(day);
-      },
-      calendarStyle: calendarStyle(),
-      headerStyle: headerStyle(),
-      daysOfWeekStyle: daysOfWeekStyle(),
-      daysOfWeekHeight: 40,
-      
-      calendarBuilders: CalendarBuilders(
-          markerBuilder: (context, day, events) {
-            Map<String, Color> colorMap = {
-              "event": Colors.yellow,
-              "special": Colors.blue
-            };
-            if (events.isEmpty) return SizedBox();
-            return ListView.builder(
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemCount: events.length,
-                itemBuilder: (context, index) {
-                  Event currentEvent = events[index] as Event;
-                  return Container(
-                    margin: EdgeInsets.only(top: 40),
-                    child: Padding(
-                      padding: const EdgeInsets.all(1.0),
-                      child: Container(
-                        width: 10,
-                        height: 10,
-                        decoration: BoxDecoration(
-                            color: colorMap[currentEvent.tag],
-                            shape: BoxShape.circle),
-                      ),
-                    ),
-                  );
-                });
+    return Column(
+      children: [
+        Container(
+            
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: TableCalendar(
+                shouldFillViewport: (_calendarFormat == CalendarFormat.month)? false : false,
+          firstDay: DateTime.utc(2010, 10, 16),
+          lastDay: DateTime.utc(2030, 3, 14),
+          focusedDay: _focusedDay,
+          selectedDayPredicate: (day) {
+              return isSameDay(_selectedDay, day);
           },
-      ),
-    ),
-        ));
+          onDaySelected: (selectedDay, focusedDay) {
+              onDaySelected(selectedDay, focusedDay);
+          },
+          calendarFormat: _calendarFormat,
+          onFormatChanged: (format) {
+              setState(() {
+                _calendarFormat = format;
+              });
+          },
+          onPageChanged: (focusedDay) {
+              _focusedDay = focusedDay;
+          },
+          eventLoader: (day) {
+              markerEvent = day;
+              return listOfDayEvents(day);
+          },
+          calendarStyle: calendarStyle(),
+          headerStyle: headerStyle(),
+          daysOfWeekStyle: daysOfWeekStyle(),
+          daysOfWeekHeight: 40,
+          
+          calendarBuilders: CalendarBuilders(
+              markerBuilder: (context, day, events) {
+                
+                if (events.isEmpty) return SizedBox();
+                return ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: events.length,
+                    itemBuilder: (context, index) {
+                      Event currentEvent = events[index] as Event;
+                      return Container(
+                        margin: EdgeInsets.only(top: 40),
+                        child: Padding(
+                          padding: const EdgeInsets.all(1.0),
+                          child: Container(
+                            width: 10,
+                            height: 10,
+                            decoration: BoxDecoration(
+                                color: colorMap[currentEvent.tag],
+                                shape: BoxShape.circle),
+                          ),
+                        ),
+                      );
+                    });
+              },
+          ),
+        ),
+            )),
+            eventRow(context, selectedEvent)
+      ],
+    );
   }
 }
 

@@ -7,6 +7,11 @@ Color colorFourth = Color.fromRGBO(44, 51, 51, 1);
 
 Color colorTransparent = Color.fromRGBO(57, 91, 100, 50);
 
+Map<String, Color> colorMap = {
+                  "event": Colors.yellow,
+                  "special": Colors.blue
+                };
+
 TextStyle styleTitle = TextStyle(color: colorFirst, fontSize: 48);
 TextStyle styleSubtitle = TextStyle(color: colorFirst, fontSize: 24);
 TextStyle styleBody = TextStyle(color: colorFirst, fontSize: 18);
