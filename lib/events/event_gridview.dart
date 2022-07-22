@@ -18,7 +18,10 @@ Widget eventWrap(BuildContext context, List<Event> list) {
 }
 
 Widget eventCard(BuildContext context, Event event) {
-  double width = (MediaQuery.of(context).size.width / 2) - 40;
+double sectionsWidth = 300;
+  double width = (MediaQuery.of(context).size.width /
+          (MediaQuery.of(context).size.width / sectionsWidth).round()) -
+      40;
   double height = 200;
   return Padding(
       padding: const EdgeInsets.only(top: 40, right: 15, left: 15),

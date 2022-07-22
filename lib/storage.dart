@@ -1,9 +1,7 @@
-import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:qc_collegeandcareer/firebase.dart';
 
@@ -22,10 +20,5 @@ Future<String> selectPicture(ImageSource source) async {
 void uploadToStorage(String id) async {
   String path = await selectPicture(ImageSource.gallery);
   Uint8List imageData = await XFile(path).readAsBytes();
-  storage.child(id).putData(
-    
-    imageData
-    
-    );
+  storage.child(id).putData(imageData);
 }
-
