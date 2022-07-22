@@ -24,33 +24,35 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
     return Scaffold(
       backgroundColor: colorFourth,
       body: SafeArea(
-        child: Column(
-          children: [
-            textInputField("Title", titleController),
-            textInputField("Description", descriptionController),
-            textInputField("tag", tagController),
-            ElevatedButton(
-                onPressed: () {
-                  selectDate(context);
-                },
-                child: Text("Select Date")),
-            ElevatedButton(
-                onPressed: () {
-                  uploadToStorage(uuid);
-                },
-                child: Text("picture")),
-            TextButton(
-                onPressed: () {
-                  addEventToFirestore(Event(
-                      id: uuid,
-                      title: titleController.text,
-                      startTime: selectedDate,
-                      description: descriptionController.text,
-                      tag: tagController.text
-                      ));
-                },
-                child: Text("place")),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              textInputField("Title", titleController),
+              textInputField("Description", descriptionController),
+              textInputField("tag", tagController),
+              ElevatedButton(
+                  onPressed: () {
+                    selectDate(context);
+                  },
+                  child: Text("Select Date")),
+              ElevatedButton(
+                  onPressed: () {
+                    uploadToStorage(uuid);
+                  },
+                  child: Text("picture")),
+              TextButton(
+                  onPressed: () {
+                    addEventToFirestore(Event(
+                        id: uuid,
+                        title: titleController.text,
+                        startTime: selectedDate,
+                        description: descriptionController.text,
+                        tag: tagController.text
+                        ));
+                  },
+                  child: Text("place")),
+            ],
+          ),
         ),
       ),
     );

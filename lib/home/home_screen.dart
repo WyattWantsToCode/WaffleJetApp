@@ -7,7 +7,6 @@ import 'package:qc_collegeandcareer/events/event_gridview.dart';
 import 'package:qc_collegeandcareer/firebase.dart';
 import 'package:qc_collegeandcareer/navigation_drawer.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -28,11 +27,11 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Stack(alignment: Alignment.topCenter, children: [
           SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 25),
+              padding: const EdgeInsets.only(bottom: 35),
               child: Column(children: [
                 welcomeBanner(context),
-                eventSection(context),
-                
+                homeScreenSectionBuilder(context, "Events", "event"),
+                homeScreenSectionBuilder(context, "Service Projects", "service project")
               ]),
             ),
           ),
@@ -57,49 +56,58 @@ Widget welcomeBanner(BuildContext context) {
   );
 }
 
-Widget eventSection(BuildContext context) {
-  return Container(
-    child: Column(
-      children: [
-        Container(
-          height: 75,
-          width: double.infinity,
-          color: colorThird,
-          child: Center(
-              child: Text(
-            "Events",
-            style: styleTitle,
-          )),
-        ),
-        FutureBuilder(
-          future: getEventsByTag("event"),
-          builder: ((context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasError) {
-                return const Center(
-                  child: Text("Error"),
-                );
-              } else if (snapshot.hasData) {
-                List<Widget> widgetList = <Widget>[];
-
-                for (var event in snapshot.data as List<Event>) {
-                  widgetList.add(eventCard(context, event));
-                }
-
-                return Wrap(
-                  
-                  children: widgetList,
-                );
-              }
-            }
-
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }),
-        )
-      ],
+Widget homeScreenSectionBuilder(BuildContext context, String label, String tag) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 20),
+    child: Container(
+      child: Column(
+        children: [
+          Container(
+            height: 65,
+            width: double.infinity,
+            color: colorThird,
+            child: Center(
+                child: Text(
+              label,
+              style: styleTitle,
+            )),
+          ),
+          Container(width: double.infinity,
+          height: 7,
+          decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)), color: colorMap[tag]),
+          ),
+          futureCardBuilder(context, tag)
+        ],
+      ),
     ),
   );
 }
 
+Widget futureCardBuilder(BuildContext context, String tag) {
+  return FutureBuilder(
+    future: getEventsByTag(tag),
+    builder: ((context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.done) {
+        if (snapshot.hasError) {
+          return const Center(
+            child: Text("Error"),
+          );
+        } else if (snapshot.hasData) {
+          List<Widget> widgetList = <Widget>[];
+
+          for (var event in snapshot.data as List<Event>) {
+            widgetList.add(eventCard(context, event));
+          }
+
+          return Wrap(
+            children: widgetList,
+          );
+        }
+      }
+
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }),
+  );
+}
