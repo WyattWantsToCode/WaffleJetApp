@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/firebase.dart';
@@ -85,9 +86,11 @@ double sectionsWidth = 300;
                         child: Center(
                             child: Material(
                           color: Colors.transparent,
-                          child: Text(
+                          child: AutoSizeText(
+                            
                             event.title,
                             style: styleSubtitle,
+                            maxLines: 1,
                           ),
                         )),
                       ),
