@@ -9,11 +9,7 @@ Event mockEventOne = Event(
     startTime: DateTime.utc(2022, 7, 17, 0, 0),
     description: "description",
     tag: "Tag1",
-    poll: Poll(id: "Id", title: "Title", listOfQuestions: <Question>[
-      Question.fillInBlank("fill in blank question"),
-      Question.multipleChoice(
-          "multiple Choice question", <String>["Test1", "Test2"])
-    ]));
+    );
 Event mockEventTwo = Event(
     id: "2",
     title: "Fun n' Mud",

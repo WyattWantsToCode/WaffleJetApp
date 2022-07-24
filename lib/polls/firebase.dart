@@ -2,10 +2,15 @@ import 'package:qc_collegeandcareer/firebase.dart';
 
 class Poll {
   String id;
+  String eventId;
   String title;
   List<Question> listOfQuestions;
 
-  Poll({required this.id, required this.title, required this.listOfQuestions});
+  Poll(
+      {required this.id,
+      required this.title,
+      required this.listOfQuestions,
+      required this.eventId});
 }
 
 class Question {
@@ -60,7 +65,11 @@ Poll mapToPoll(Map<String, dynamic> map) {
     },
   );
 
-  return Poll(id: map["id"], title: map["title"], listOfQuestions: list);
+  return Poll(
+      id: map["id"],
+      title: map["title"],
+      listOfQuestions: list,
+      eventId: map["eventId"]);
 }
 
 Question mapToQuestion(Map<String, dynamic> map) {
@@ -74,4 +83,32 @@ Question mapToQuestion(Map<String, dynamic> map) {
   } else {
     return Question.fillInBlank(map["question"]);
   }
+}
+
+class PollAnswer {
+  String id;
+  String eventId;
+  List<String> answers;
+
+  PollAnswer({required this.id, required this.eventId, required this.answers});
+}
+
+Map<String, dynamic> pollAnswerToMap(PollAnswer pollAnswer) {
+  Map<String, dynamic> map = {};
+  int index = 0;
+  for (String answer in pollAnswer.answers) {
+    map.addAll({index.toString(): answer});
+    index++;
+  }
+
+  return {"id": pollAnswer.id, "eventId": pollAnswer.eventId, "answers": map};
+}
+
+void addPollAnswerToDB(PollAnswer pollAnswer) {
+  db
+      .collection("Poll Answers")
+      .doc(pollAnswer.eventId)
+      .collection("Poll Answers")
+      .doc(pollAnswer.id)
+      .set(pollAnswerToMap(pollAnswer));
 }

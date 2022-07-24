@@ -103,8 +103,8 @@ class _SpecificEventScreenState extends State<SpecificEventScreen> {
                       ),
                     ),
                   ),
-                ),
-                PollWidget(poll: widget.event.poll!)
+                ),(widget.event.poll != null)?
+                PollWidget(poll: widget.event.poll!): Container(),
               ]),
             ),
             appBar(true, context, GlobalKey()),

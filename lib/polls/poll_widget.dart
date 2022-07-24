@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/polls/firebase.dart';
+import 'package:uuid/uuid.dart';
 
 List<String> answers = <String>[];
 
@@ -47,7 +48,10 @@ class _PollWidgetState extends State<PollWidget> {
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(primary: colorThird),
                     onPressed: () {
-                      print(answers);
+                      addPollAnswerToDB(PollAnswer(
+                          id: widget.poll.id,
+                          eventId: widget.poll.eventId,
+                          answers: answers));
                     },
                     child: Text(
                       "Submit",
