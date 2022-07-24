@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.only(bottom: 35),
               child: Column(children: [
                 welcomeBanner(context),
+            
                 homeScreenSectionBuilder(context, "Events", "event"),
                 homeScreenSectionBuilder(context, "Service Projects", "service project")
               ]),

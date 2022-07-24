@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/appbar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/firebase.dart';
+import 'package:qc_collegeandcareer/polls/poll_widget.dart';
 import 'package:qc_collegeandcareer/storage.dart';
 
 class SpecificEventScreen extends StatefulWidget {
@@ -102,7 +103,8 @@ class _SpecificEventScreenState extends State<SpecificEventScreen> {
                       ),
                     ),
                   ),
-                )
+                ),
+                PollWidget(poll: widget.event.poll!)
               ]),
             ),
             appBar(true, context, GlobalKey()),
@@ -158,7 +160,7 @@ Widget timeAndDate(DateTime dateTime) {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          "${dayList[dateTime.weekday]}, ${monthList[dateTime.month]} ${dateTime.day}",
+          "${dayList[dateTime.weekday - 1]}, ${monthList[dateTime.month - 1]} ${dateTime.day}",
           style: styleSubtitle,
         ),
         Container(width: 50,),

@@ -1,13 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:qc_collegeandcareer/polls/firebase.dart';
 
 var db = FirebaseFirestore.instance;
 
 Event mockEventOne = Event(
-    id: "1",
+    id: "no image yet.jpg",
     title: "Crew night",
-    startTime: DateTime.utc(2022, 7, 17),
+    startTime: DateTime.utc(2022, 7, 17, 0, 0),
     description: "description",
-    tag: "Tag1");
+    tag: "Tag1",
+    poll: Poll(id: "Id", title: "Title", listOfQuestions: <Question>[
+      Question.fillInBlank("fill in blank question"),
+      Question.multipleChoice(
+          "multiple Choice question", <String>["Test1", "Test2"])
+    ]));
 Event mockEventTwo = Event(
     id: "2",
     title: "Fun n' Mud",
@@ -21,13 +27,15 @@ class Event {
   DateTime startTime;
   String description;
   String tag;
+  Poll? poll;
 
   Event(
       {required this.id,
       required this.title,
       required this.startTime,
       required this.description,
-      required this.tag});
+      required this.tag,
+      this.poll});
 }
 
 Map<String, dynamic> eventToMap(Event event) {
@@ -36,18 +44,24 @@ Map<String, dynamic> eventToMap(Event event) {
     "title": event.title,
     "startTime": Timestamp.fromDate(event.startTime),
     "description": event.description,
-    "tag": event.tag
+    "tag": event.tag,
+    if (event.poll != null) ...{"poll": pollToMap(event.poll!)}
   };
 }
 
 Event mapToEvent(Map<String, dynamic> map) {
+  Poll? poll = null;
+  if (map["poll"] != null) {
+    poll = mapToPoll(map["poll"]);
+  }
   return Event(
       id: map["id"],
       title: map["title"],
       startTime: DateTime.fromMicrosecondsSinceEpoch(
           map["startTime"].microsecondsSinceEpoch),
       description: map["description"],
-      tag: map["tag"]);
+      tag: map["tag"],
+      poll: poll);
 }
 
 void addEventToFirestore(Event event) {
