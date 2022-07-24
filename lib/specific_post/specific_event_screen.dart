@@ -16,7 +16,8 @@ class SpecificEventScreen extends StatefulWidget {
   State<SpecificEventScreen> createState() => _SpecificEventScreenState();
 }
 
-class _SpecificEventScreenState extends State<SpecificEventScreen> {
+class _SpecificEventScreenState extends State<SpecificEventScreen>
+    with TickerProviderStateMixin {
   bool animated = false;
   double opacity = 0;
 
@@ -31,86 +32,135 @@ class _SpecificEventScreenState extends State<SpecificEventScreen> {
       }
     });
 
-    return Scaffold(
-      backgroundColor: colorFourth,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(children: [
-                SizedBox(
-                  width: double.infinity,
-                  height: 75,
-                ),
-                Hero(
-                  tag: widget.event.id + "image",
-                  child: Opacity(
-                    opacity: 1,
-                    child: Container(
-                      height: MediaQuery.of(context).size.width * .6,
+    return Stack(
+      children: [
+        GradientBackground(
+          color: colorMap[widget.event.tag]!,
+        ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          body: SafeArea(
+            child: Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Column(children: [
+                    Container(
                       width: double.infinity,
-                      decoration: BoxDecoration(
-                          image: widget.image,
-                          color: colorThird,
-                          borderRadius: BorderRadius.all(Radius.circular(0))),
+                      height: 75,
+                      color: colorFourth,
                     ),
-                  ),
-                ),
-                Hero(
-                    tag: widget.event.id + "tag",
-                    child: Container(
-                      width: double.infinity,
-                      height: 7,
-                      color: colorMap[widget.event.tag],
-                    )),
-                Hero(
-                  tag: widget.event.id + "title",
-                  child: Container(
-                    width: double.infinity,
-                    height: 75,
-                    decoration: BoxDecoration(
-                        color: colorThird,
-                        borderRadius: BorderRadius.all(Radius.circular(0))),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 36),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              widget.event.title,
-                              style: styleTitle,
-                            ),
-                          ],
+                    Hero(
+                      tag: widget.event.id + "image",
+                      child: Opacity(
+                        opacity: 1,
+                        child: Container(
+                          height: MediaQuery.of(context).size.width * .6,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              image: widget.image,
+                              color: colorThird,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(0))),
                         ),
                       ),
                     ),
-                  ),
-                ),
-                timeAndDate(widget.event.startTime),
-                
-                AnimatedOpacity(
-                  opacity: opacity,
-                  duration: Duration(seconds: 1),
-                  child: Padding(
-                    padding: const EdgeInsets.all(36.0),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        widget.event.description,
-                        style: styleBody,
+                    Hero(
+                        tag: widget.event.id + "tag",
+                        child: Container(
+                          width: double.infinity,
+                          height: 7,
+                          color: colorMap[widget.event.tag],
+                        )),
+                    Hero(
+                      tag: widget.event.id + "title",
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          boxShadow: [BoxShadow(
+                              color: Colors.black.withOpacity(.75),
+                              blurRadius: 15,
+                              offset: Offset(
+                                5,
+                                5
+                              )
+                              
+                            )],
+                            color: colorFourth,
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(36),
+                                bottomRight: Radius.circular(36))),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 36, vertical: 12),
+                            child: Center(
+                              child: Text(
+                                widget.event.title,
+                                style: styleTitle,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),(widget.event.poll != null)?
-                PollWidget(poll: widget.event.poll!): Container(),
-              ]),
+                    Padding(
+                      padding: const EdgeInsets.all(25.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          
+                            boxShadow: [BoxShadow(
+                              color: Colors.black.withOpacity(.75),
+                              blurRadius: 15,
+                              offset: Offset(
+                                7,
+                                7
+                              )
+                              
+                            )],
+                            color: colorFourth,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(25))),
+                        child: Padding(
+                          padding: const EdgeInsets.all(25.0),
+                          child: Column(
+                            children: [
+                              timeAndDate(widget.event.startTime),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 20),
+                                child: Divider(
+                                  color: colorMap[widget.event.tag],
+                                  thickness: 4,
+                                ),
+                              ),
+                              AnimatedOpacity(
+                                opacity: opacity,
+                                duration: Duration(seconds: 1),
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    widget.event.description,
+                                    style: styleBody,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    (widget.event.poll != null)
+                        ? PollWidget(poll: widget.event.poll!)
+                        : Container(),
+                  ]),
+                ),
+                appBar(true, context, GlobalKey()),
+              ],
             ),
-            appBar(true, context, GlobalKey()),
-          ],
-        ),
-      ),
+          ),
+        )
+      ],
     );
   }
 }
@@ -143,29 +193,81 @@ Widget timeAndDate(DateTime dateTime) {
   String time = "";
   String ampm = "AM";
 
-
   if (dateTime.hour > 12) {
     time = (dateTime.hour - 12).toString();
-     ampm = "PM";
+    ampm = "PM";
   } else {
     time = dateTime.hour.toString();
   }
 
-  time = time + ":" + dateTime.minute.toString().padLeft(2, "0") + " "+ampm;
+  time = time + ":" + dateTime.minute.toString().padLeft(2, "0") + " " + ampm;
 
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 36),
-    child: Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Text(
-          "${dayList[dateTime.weekday - 1]}, ${monthList[dateTime.month - 1]} ${dateTime.day}",
-          style: styleSubtitle,
-        ),
-        Container(width: 50,),
-        Text(time, style: styleSubtitle)
-      ],
-    ),
+  return Row(
+    mainAxisSize: MainAxisSize.max,
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Text(
+        "${dayList[dateTime.weekday - 1]}, ${monthList[dateTime.month - 1]} ${dateTime.day}  ",
+        style: styleSubtitle,
+      ),
+      Text(time, style: styleSubtitle)
+    ],
   );
+}
+
+class GradientBackground extends StatefulWidget {
+  Color color;
+  GradientBackground({Key? key, required this.color}) : super(key: key);
+
+  @override
+  State<GradientBackground> createState() => _GradientBackgroundState();
+}
+
+class _GradientBackgroundState extends State<GradientBackground>
+    with SingleTickerProviderStateMixin {
+  List<Alignment> alignmentList = [
+    Alignment.bottomLeft,
+    Alignment.bottomRight,
+    Alignment.topRight,
+    Alignment.topLeft,
+  ];
+
+  int alignmentIndex = 0;
+
+  _startBgColorAnimationTimer() {
+    ///Animating for the first time.
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      alignmentIndex++;
+      setState(() {});
+    });
+
+    const interval = Duration(seconds: 10);
+    Timer.periodic(
+      interval,
+      (Timer timer) {
+        alignmentIndex++;
+        setState(() {});
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    _startBgColorAnimationTimer();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    
+    return AnimatedContainer(
+      curve: Curves.linear,
+      duration: Duration(seconds: 10),
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: alignmentList[alignmentIndex % alignmentList.length],
+              end: alignmentList[(alignmentIndex + 2) % alignmentList.length],
+              colors: [widget.color, colorThird])),
+    );
+  }
 }
