@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/Navigation/bottom_bar.dart';
 import 'package:qc_collegeandcareer/appbar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
-import 'package:qc_collegeandcareer/create_events/create_event_screen.dart';
+
 import 'package:qc_collegeandcareer/events/event_gridview.dart';
 
 import 'package:qc_collegeandcareer/firebase.dart';
-import 'package:qc_collegeandcareer/navigation_drawer.dart';
+
 import 'package:qc_collegeandcareer/specific_post/specific_event_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
         GradientBackground(color: colorAccentSecond),
         Scaffold(
           key: globalKey,
-          drawer: drawer(context),
+
           backgroundColor: colorThird.withOpacity(.3),
           body: SafeArea(
             child: Column(

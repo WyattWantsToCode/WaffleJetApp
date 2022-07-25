@@ -6,7 +6,7 @@ import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/events/event_gridview.dart';
 
 import 'package:qc_collegeandcareer/firebase.dart';
-import 'package:qc_collegeandcareer/navigation_drawer.dart';
+
 import 'package:qc_collegeandcareer/specific_post/specific_event_screen.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -27,7 +27,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
         Scaffold(
             backgroundColor: colorThird.withOpacity(.3),
             key: globalKey,
-            drawer: drawer(context),
+
             body: SafeArea(
               child: Column(
                 mainAxisSize: MainAxisSize.max,

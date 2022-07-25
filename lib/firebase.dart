@@ -34,16 +34,7 @@ class Event {
       this.poll});
 }
 
-Map<String, dynamic> eventToMap(Event event) {
-  return {
-    "id": event.id,
-    "title": event.title,
-    "startTime": Timestamp.fromDate(event.startTime),
-    "description": event.description,
-    "tag": event.tag,
-    if (event.poll != null) ...{"poll": pollToMap(event.poll!)}
-  };
-}
+
 
 Event mapToEvent(Map<String, dynamic> map) {
   Poll? poll = null;
@@ -60,9 +51,7 @@ Event mapToEvent(Map<String, dynamic> map) {
       poll: poll);
 }
 
-void addEventToFirestore(Event event) {
-  db.collection("Events").doc(event.id).set((eventToMap(event)));
-}
+
 
 Future<List<Event>> getAllEventsFromDB() async {
   List<Event> list = <Event>[];

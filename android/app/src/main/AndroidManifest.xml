@@ -2,7 +2,7 @@
     package="com.example.qc_collegeandcareer">
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
    <application
-        android:label="qc_collegeandcareer"
+        android:label="QCCC"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
