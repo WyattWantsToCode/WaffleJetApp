@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/firebase.dart';
@@ -38,7 +39,7 @@ double sectionsWidth = 300;
                 } else if (snapshot.hasData) {
                   var imageString = snapshot.data as String;
                   DecorationImage image = DecorationImage(
-                      image: NetworkImage(
+                      image: CachedNetworkImageProvider(
                         imageString,
                       ),
                       fit: BoxFit.cover);
