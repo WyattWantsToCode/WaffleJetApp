@@ -18,18 +18,22 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return Hero(
       tag: "BottomBar",
-      child: Container(
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            createNavButton(context, widget.popBeforeNav, Icons.home_outlined, Icons.home_filled,
-                HomeScreen(), 0),
-            createNavButton(context, widget.popBeforeNav,
-                Icons.calendar_month_outlined,  Icons.calendar_month, CalendarScreen(), 1),
-            createNavButton(context, widget.popBeforeNav, Icons.people_outlined, Icons.people,
-                HomeScreen(), 2),
-          ],
+      child: ClipRRect(
+
+        child: Container(
+          color: colorFourth.withOpacity(.75),
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              createNavButton(context, widget.popBeforeNav, Icons.home_outlined, Icons.home_filled,
+                  HomeScreen(), 0),
+              createNavButton(context, widget.popBeforeNav,
+                  Icons.calendar_month_outlined,  Icons.calendar_month, CalendarScreen(), 1),
+              createNavButton(context, widget.popBeforeNav, Icons.people_outlined, Icons.people,
+                  HomeScreen(), 2),
+            ],
+          ),
         ),
       ),
     );
@@ -61,5 +65,6 @@ Widget createNavButton(
         currentPage[pageNumber]? activeIconData : notActiveIconData,
         color: colorSecond,
         size: currentPage[pageNumber]? 35 : 30,
+        shadows: [Shadow(color: Colors.black.withOpacity(.5), blurRadius: 20, offset: Offset(5,5))],
       ));
 }
