@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qc_collegeandcareer/Navigation/bottom_bar.dart';
 import 'package:qc_collegeandcareer/appbar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/create_events/create_event_screen.dart';
@@ -22,25 +23,32 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        
         GradientBackground(color: colorAccentSecond),
         Scaffold(
           key: globalKey,
           drawer: drawer(context),
           backgroundColor: colorThird.withOpacity(.3),
           body: SafeArea(
-            child: Stack(alignment: Alignment.topCenter, children: [
-              SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 35),
-                  child: Column(children: [
-                    welcomeBanner(context),
-                
-                    homeScreenSectionBuilder(context, "Events", "event"),
-                    homeScreenSectionBuilder(context, "Service Projects", "service project")
-                  ]),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+              
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 35),
+                    child: Column(children: [
+                      welcomeBanner(context),
+                  
+                      homeScreenSectionBuilder(context, "Events", "event"),
+                      homeScreenSectionBuilder(context, "Service Projects", "service project")
+                    ]),
+                  ),
                 ),
               ),
-              appBar(1, context, globalKey)
+             BottomBar(),
             ]),
           ),
         ),

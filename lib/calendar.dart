@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:qc_collegeandcareer/Navigation/bottom_bar.dart';
 import 'package:qc_collegeandcareer/appbar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/events/event_gridview.dart';
@@ -24,43 +25,48 @@ class _CalendarScreenState extends State<CalendarScreen> {
         key: globalKey,
         drawer: drawer(context),
         body: SafeArea(
-          child: Stack(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            
             children: [
               
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      width: double.infinity,
-                      height: 75,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 25),
-                      child: FutureBuilder(
-                        future: getAllEventsFromDB(),
-                        builder: ((context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.done) {
-                            if (snapshot.hasError) {
-                              return const Center(
-                                child: Text("Error"),
-                              );
-                            } else if (snapshot.hasData) {
-                              return Calendar(
-                                eventMap: getAllEventMap(snapshot.data as List<Event>),
-                              );
-                            }
-                          }
-                            
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        width: double.infinity,
+                        height: 75,
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 25),
+                        child: FutureBuilder(
+                          future: getAllEventsFromDB(),
+                          builder: ((context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.done) {
+                              if (snapshot.hasError) {
+                                return const Center(
+                                  child: Text("Error"),
+                                );
+                              } else if (snapshot.hasData) {
+                                return Calendar(
+                                  eventMap: getAllEventMap(snapshot.data as List<Event>),
+                                );
+                              }
+                            }
+                              
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              appBar(0, context, globalKey),
+              BottomBar()
               
                
             ],
