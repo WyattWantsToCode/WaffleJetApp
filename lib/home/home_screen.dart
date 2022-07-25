@@ -6,6 +6,7 @@ import 'package:qc_collegeandcareer/events/event_gridview.dart';
 
 import 'package:qc_collegeandcareer/firebase.dart';
 import 'package:qc_collegeandcareer/navigation_drawer.dart';
+import 'package:qc_collegeandcareer/specific_post/specific_event_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -19,26 +20,31 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: globalKey,
-      drawer: drawer(context),
-      backgroundColor: colorFourth,
-      body: SafeArea(
-        child: Stack(alignment: Alignment.topCenter, children: [
-          SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 35),
-              child: Column(children: [
-                welcomeBanner(context),
-            
-                homeScreenSectionBuilder(context, "Events", "event"),
-                homeScreenSectionBuilder(context, "Service Projects", "service project")
-              ]),
-            ),
+    return Stack(
+      children: [
+        GradientBackground(color: colorAccentSecond),
+        Scaffold(
+          key: globalKey,
+          drawer: drawer(context),
+          backgroundColor: colorThird.withOpacity(.3),
+          body: SafeArea(
+            child: Stack(alignment: Alignment.topCenter, children: [
+              SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 35),
+                  child: Column(children: [
+                    welcomeBanner(context),
+                
+                    homeScreenSectionBuilder(context, "Events", "event"),
+                    homeScreenSectionBuilder(context, "Service Projects", "service project")
+                  ]),
+                ),
+              ),
+              appBar(false, context, globalKey)
+            ]),
           ),
-          appBar(false, context, globalKey)
-        ]),
-      ),
+        ),
+      ],
     );
   }
 }
@@ -48,11 +54,14 @@ Widget welcomeBanner(BuildContext context) {
 
   return Container(
     height: height / 3,
+    
     child: Center(
         child: Icon(
+          
       Icons.kayaking,
       size: height / 3.2,
-      color: colorSecond,
+      color: colorFirst,
+      shadows: [Shadow(color: Colors.black.withOpacity(.5), blurRadius: 20, offset: Offset(7,7))],
     )),
   );
 }
@@ -60,26 +69,32 @@ Widget welcomeBanner(BuildContext context) {
 Widget homeScreenSectionBuilder(BuildContext context, String label, String tag) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 20),
-    child: Container(
-      child: Column(
-        children: [
-          Container(
-            height: 65,
-            width: double.infinity,
-            color: colorThird,
-            child: Center(
-                child: Text(
-              label,
-              style: styleTitle,
-            )),
-          ),
-          Container(width: double.infinity,
-          height: 7,
-          decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)), color: colorMap[tag]),
-          ),
-          futureCardBuilder(context, tag)
-        ],
-      ),
+    child: Column(
+      children: [
+        Container(
+          height: 65,
+          width: double.infinity,
+          
+          decoration: BoxDecoration( 
+            color: colorFourth,
+            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(.75),
+                                  blurRadius: 15,
+                                  offset: Offset(7, 7))
+                            ],),
+          child: Center(
+              child: Text(
+            label,
+            style: styleTitle,
+          )),
+        ),
+        Container(width: double.infinity,
+        height: 7,
+        decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)), color: colorMap[tag]),
+        ),
+        futureCardBuilder(context, tag)
+      ],
     ),
   );
 }

@@ -76,15 +76,12 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          boxShadow: [BoxShadow(
-                              color: Colors.black.withOpacity(.75),
-                              blurRadius: 15,
-                              offset: Offset(
-                                5,
-                                5
-                              )
-                              
-                            )],
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(.75),
+                                  blurRadius: 15,
+                                  offset: Offset(5, 5))
+                            ],
                             color: colorFourth,
                             borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(36),
@@ -108,16 +105,12 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                       padding: const EdgeInsets.all(25.0),
                       child: Container(
                         decoration: BoxDecoration(
-                          
-                            boxShadow: [BoxShadow(
-                              color: Colors.black.withOpacity(.75),
-                              blurRadius: 15,
-                              offset: Offset(
-                                7,
-                                7
-                              )
-                              
-                            )],
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black.withOpacity(.75),
+                                  blurRadius: 15,
+                                  offset: Offset(7, 7))
+                            ],
                             color: colorFourth,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(25))),
@@ -202,9 +195,10 @@ Widget timeAndDate(DateTime dateTime) {
 
   time = time + ":" + dateTime.minute.toString().padLeft(2, "0") + " " + ampm;
 
-  return Row(
-    mainAxisSize: MainAxisSize.max,
-    mainAxisAlignment: MainAxisAlignment.start,
+  return Wrap(
+
+    
+    
     children: [
       Text(
         "${dayList[dateTime.weekday - 1]}, ${monthList[dateTime.month - 1]} ${dateTime.day}  ",
@@ -233,6 +227,7 @@ class _GradientBackgroundState extends State<GradientBackground>
   ];
 
   int alignmentIndex = 0;
+  bool cancelTimer = false;
 
   _startBgColorAnimationTimer() {
     ///Animating for the first time.
@@ -241,12 +236,14 @@ class _GradientBackgroundState extends State<GradientBackground>
       setState(() {});
     });
 
-    const interval = Duration(seconds: 10);
+    const interval = Duration(seconds: 30);
     Timer.periodic(
       interval,
       (Timer timer) {
-        alignmentIndex++;
-        setState(() {});
+        if (this.mounted) {
+          alignmentIndex++;
+          setState(() {});
+        }
       },
     );
   }
@@ -258,11 +255,11 @@ class _GradientBackgroundState extends State<GradientBackground>
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
-    
     return AnimatedContainer(
-      curve: Curves.linear,
-      duration: Duration(seconds: 10),
+      
+      duration: Duration(seconds: 30),
       decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: alignmentList[alignmentIndex % alignmentList.length],

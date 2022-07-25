@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 Color colorFirst = Color.fromRGBO(231, 246, 242, 1);
 Color colorSecond = Color.fromRGBO(165, 201, 202, 1);
@@ -16,6 +17,6 @@ Map<String, Color> colorMap = {
   "service project": Colors.blue.withOpacity(.75)
 };
 
-TextStyle styleTitle = TextStyle(color: colorFirst, fontSize: 48);
-TextStyle styleSubtitle = TextStyle(color: colorFirst, fontSize: 24);
-TextStyle styleBody = TextStyle(color: colorFirst, fontSize: 18);
+TextStyle styleTitle = GoogleFonts.robotoCondensed(textStyle:  TextStyle(color: colorFirst, fontSize: 48, fontWeight: FontWeight.w300));
+TextStyle styleSubtitle = GoogleFonts.cabin(textStyle:  TextStyle(color: colorFirst, fontSize: 28, fontWeight: FontWeight.w400));
+TextStyle styleBody = GoogleFonts.cabin(textStyle:  TextStyle(color: colorFirst, fontSize: 18, fontWeight: FontWeight.w200));
