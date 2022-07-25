@@ -26,7 +26,7 @@ class _BottomBarState extends State<BottomBar> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              createNavButton(context, widget.popBeforeNav, Icons.home_outlined, Icons.home_filled,
+              createNavButton(context, widget.popBeforeNav, Icons.home_outlined, Icons.home,
                   HomeScreen(), 0),
               createNavButton(context, widget.popBeforeNav,
                   Icons.calendar_month_outlined,  Icons.calendar_month, CalendarScreen(), 1),
