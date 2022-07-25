@@ -113,13 +113,15 @@ double sectionsWidth = 300;
                             children: [ClipOval(
                               child: BackdropFilter(
                                 filter: ImageFilter.blur(
-              sigmaX: 2.0,
-              sigmaY: 2.0,
+              sigmaX: 1.0,
+              sigmaY: 1.0,
             ),
                                 child: Container(
                                   width: 25,
                                   height: 25,
-                                  decoration: BoxDecoration(color: colorThird.withOpacity(.2), shape: BoxShape.circle),),
+                                  decoration: BoxDecoration(
+                                    gradient: RadialGradient(colors: [colorThird, colorThird.withOpacity(.2)]),
+                                   shape: BoxShape.circle),),
                               ),
                             ),
                                Hero(
