@@ -107,77 +107,75 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(.75),
-                                  blurRadius: 15,
-                                  offset: Offset(7, 7))
-                            ],
-                  color: colorFourth,
-                  borderRadius: BorderRadius.all(Radius.circular(25))),
-              child: Padding(
-                padding: const EdgeInsets.all(15),
-                child: TableCalendar(
-                  shouldFillViewport:
-                      (_calendarFormat == CalendarFormat.month) ? false : false,
-                  firstDay: DateTime.utc(2010, 10, 16),
-                  lastDay: DateTime.utc(2030, 3, 14),
-                  focusedDay: _focusedDay,
-                  selectedDayPredicate: (day) {
-                    return isSameDay(_selectedDay, day);
-                  },
-                  onDaySelected: (selectedDay, focusedDay) {
-                    onDaySelected(selectedDay, focusedDay);
-                  },
-                  calendarFormat: _calendarFormat,
-                  onFormatChanged: (format) {
-                    setState(() {
-                      _calendarFormat = format;
-                    });
-                  },
-                  onPageChanged: (focusedDay) {
-                    _focusedDay = focusedDay;
-                  },
-                  eventLoader: (day) {
-                    markerEvent = day;
-                    return listOfDayEvents(day);
-                  },
-                  calendarStyle: calendarStyle(),
-                  headerStyle: headerStyle(),
-                  daysOfWeekStyle: daysOfWeekStyle(),
-                  daysOfWeekHeight: 40,
-                  calendarBuilders: CalendarBuilders(
-                    markerBuilder: (context, day, events) {
-                      if (events.isEmpty) return SizedBox();
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: events.length,
-                          itemBuilder: (context, index) {
-                            Event currentEvent = events[index] as Event;
-                            return Container(
-                              margin: EdgeInsets.only(top: 40),
-                              child: Padding(
-                                padding: const EdgeInsets.all(1.0),
-                                child: Container(
-                                  width: 10,
-                                  height: 10,
-                                  decoration: BoxDecoration(
-                                      color: colorMap[currentEvent.tag],
-                                      shape: BoxShape.circle),
-                                ),
+        Container(
+            decoration: BoxDecoration(
+              
+              boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(.8),
+                                blurRadius: 25,
+                                offset: Offset(5, 5))
+                          ],
+                color: colorFourth,
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(36),bottomRight: Radius.circular(36))),
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: TableCalendar(
+                shouldFillViewport:
+                    (_calendarFormat == CalendarFormat.month) ? false : false,
+                firstDay: DateTime.utc(2010, 10, 16),
+                lastDay: DateTime.utc(2030, 3, 14),
+                focusedDay: _focusedDay,
+                selectedDayPredicate: (day) {
+                  return isSameDay(_selectedDay, day);
+                },
+                onDaySelected: (selectedDay, focusedDay) {
+                  onDaySelected(selectedDay, focusedDay);
+                },
+                calendarFormat: _calendarFormat,
+                onFormatChanged: (format) {
+                  setState(() {
+                    _calendarFormat = format;
+                  });
+                },
+                onPageChanged: (focusedDay) {
+                  _focusedDay = focusedDay;
+                },
+                eventLoader: (day) {
+                  markerEvent = day;
+                  return listOfDayEvents(day);
+                },
+                calendarStyle: calendarStyle(),
+                headerStyle: headerStyle(),
+                daysOfWeekStyle: daysOfWeekStyle(),
+                daysOfWeekHeight: 40,
+                calendarBuilders: CalendarBuilders(
+                  markerBuilder: (context, day, events) {
+                    if (events.isEmpty) return SizedBox();
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: events.length,
+                        itemBuilder: (context, index) {
+                          Event currentEvent = events[index] as Event;
+                          return Container(
+                            margin: EdgeInsets.only(top: 40),
+                            child: Padding(
+                              padding: const EdgeInsets.all(1.0),
+                              child: Container(
+                                width: 10,
+                                height: 10,
+                                decoration: BoxDecoration(
+                                    color: colorMap[currentEvent.tag],
+                                    shape: BoxShape.circle),
                               ),
-                            );
-                          });
-                    },
-                  ),
+                            ),
+                          );
+                        });
+                  },
                 ),
-              )),
-        ),
+              ),
+            )),
         eventWrap(context, selectedEvent)
       ],
     );
@@ -185,7 +183,7 @@ class _CalendarState extends State<Calendar> {
 }
 
 CalendarStyle calendarStyle() {
-  double fontOffset = 2;
+  double fontOffset = 3;
   return CalendarStyle(
     defaultTextStyle: styleBody.apply(fontSizeDelta: fontOffset),
     todayTextStyle: styleBody.apply(fontSizeDelta: fontOffset),
@@ -193,7 +191,7 @@ CalendarStyle calendarStyle() {
     selectedTextStyle: styleBody.apply(fontSizeDelta: fontOffset),
     weekendTextStyle: styleBody.apply(fontSizeDelta: fontOffset),
     outsideTextStyle:
-        styleBody.apply(fontSizeDelta: -2, color: colorSecond.withOpacity(.6)),
+        styleBody.apply(fontSizeDelta: 0, color: colorSecond.withOpacity(.6)),
     cellMargin: EdgeInsets.all(0),
     cellPadding: EdgeInsets.all(10),
     selectedDecoration: BoxDecoration(
@@ -206,6 +204,7 @@ CalendarStyle calendarStyle() {
 HeaderStyle headerStyle() {
   return HeaderStyle(
       titleTextStyle: styleSubtitle,
+      titleCentered: true,
       leftChevronIcon: Icon(
         Icons.chevron_left_rounded,
         color: colorSecond,
