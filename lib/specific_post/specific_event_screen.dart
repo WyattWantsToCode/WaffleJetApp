@@ -148,7 +148,7 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                         : Container(),
                   ]),
                 ),
-                appBar(true, context, GlobalKey()),
+                appBar(2, context, GlobalKey()),
               ],
             ),
           ),

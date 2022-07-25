@@ -1,15 +1,24 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:qc_collegeandcareer/calendar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/home/home_screen.dart';
 
 Widget appBar(
-    bool popable, BuildContext context, GlobalKey<ScaffoldState> key) {
+    int stackIndex, BuildContext context, GlobalKey<ScaffoldState> key) {
+  List<Widget> widgetList = [
+    
+  ];
   return Row(
     mainAxisSize: MainAxisSize.max,
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      popable ? backArrow(context) : hamburger(context, key),
-      popable ? settingsIcon(context) : settingsIcon(context),
+      IndexedStack(children: [
+        
+        home(),
+      ],),
+      settingsIcon(context)
     ],
   );
 }
@@ -21,7 +30,7 @@ Widget settingsIcon(BuildContext context) {
   return Container(
     decoration: BoxDecoration(
         color: colorFourth,
-        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(25))),
+        borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(25))),
     width: width,
     height: height,
     child: TextButton(
@@ -44,7 +53,8 @@ Widget hamburger(BuildContext context, GlobalKey<ScaffoldState> key) {
   return Container(
     decoration: BoxDecoration(
         color: colorFourth,
-        borderRadius: BorderRadius.only(bottomRight: Radius.circular(25))),
+        borderRadius:
+            const BorderRadius.only(bottomRight: Radius.circular(25))),
     width: width,
     height: height,
     child: TextButton(
@@ -75,7 +85,7 @@ Widget ham() {
     height: 5,
     decoration: BoxDecoration(
         color: colorSecond,
-        borderRadius: BorderRadius.all(Radius.circular(2.5))),
+        borderRadius: const BorderRadius.all(Radius.circular(2.5))),
   );
 }
 
@@ -83,7 +93,8 @@ Widget backArrow(BuildContext context) {
   return Container(
     decoration: BoxDecoration(
         color: colorFourth,
-        borderRadius: BorderRadius.only(bottomRight: Radius.circular(25))),
+        borderRadius:
+            const BorderRadius.only(bottomRight: Radius.circular(25))),
     width: width,
     height: height,
     child: TextButton(
@@ -114,7 +125,41 @@ Widget arrowPieces(double rotation, double length) {
       height: 5,
       decoration: BoxDecoration(
           color: colorSecond,
-          borderRadius: BorderRadius.all(Radius.circular(2.5))),
+          borderRadius: const BorderRadius.all(Radius.circular(2.5))),
+    ),
+  );
+}
+
+Widget home() {
+  return Padding(
+    padding: const EdgeInsets.all(40.0),
+    child: Container(
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+        container(Offset(0, 10), 25, pi/2, ),
+        container(Offset(0, -7), 25, pi/2, ),
+        container(Offset(10, 0), 25, 0, ),
+        container(Offset(-10, 0), 25, 0, ),
+        container(Offset(-9, -11), 27, pi/3.5,),
+        container(Offset(9, -11), 27, -pi/3.5, )
+      ]),
+    ),
+  );
+}
+
+Widget container(Offset offset, double length, double rotation) {
+  return Transform.translate(
+    offset: offset,
+    child: Transform.rotate(
+      angle: rotation,
+      child: Container(
+        width: 5,
+        height: length,
+      decoration: BoxDecoration(
+          color: colorSecond,
+          borderRadius: const BorderRadius.all(Radius.circular(2.5))),
+      ),
     ),
   );
 }

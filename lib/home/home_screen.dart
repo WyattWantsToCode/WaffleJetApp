@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ]),
                 ),
               ),
-              appBar(false, context, globalKey)
+              appBar(1, context, globalKey)
             ]),
           ),
         ),
