@@ -6,7 +6,7 @@ import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/home/home_screen.dart';
 
 Widget appBar(
-    int stackIndex, BuildContext context, GlobalKey<ScaffoldState> key) {
+    BuildContext context) {
   List<Widget> widgetList = [
     
   ];
@@ -16,15 +16,15 @@ Widget appBar(
     children: [
       IndexedStack(children: [
         
-        home(),
+        backArrow(context),
       ],),
-      settingsIcon(context)
+      
     ],
   );
 }
 
-double width = 75;
-double height = 75;
+double width = 60;
+double height = 60;
 
 Widget settingsIcon(BuildContext context) {
   return Container(
@@ -62,17 +62,20 @@ Widget hamburger(BuildContext context, GlobalKey<ScaffoldState> key) {
         key.currentState!.openDrawer();
       }),
       child: Center(
-        child: Container(
-          height: 25,
-          width: 30,
-          child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Hero(tag: "1", child: ham()),
-                Hero(tag: "2", child: ham()),
-                Hero(tag: "3", child: ham()),
-              ]),
+        child: Opacity(
+          opacity: 0,
+          child: Container(
+            height: 25,
+            width: 30,
+            child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Hero(tag: "1", child: ham()),
+                  Hero(tag: "2", child: ham()),
+                  Hero(tag: "3", child: ham()),
+                ]),
+          ),
         ),
       ),
     ),
@@ -91,20 +94,21 @@ Widget ham() {
 
 Widget backArrow(BuildContext context) {
   return Container(
+   
     decoration: BoxDecoration(
         color: colorFourth,
         borderRadius:
             const BorderRadius.only(bottomRight: Radius.circular(25))),
     width: width,
     height: height,
-    child: TextButton(
-      onPressed: () {
-        Navigator.pop(context);
-      },
-      child: Center(
+    child: Center(
+      child: TextButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
         child: Container(
           width: 30,
-          height: 25,
+          height: 17,
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Hero(tag: "3", child: arrowPieces(-.785, 15)),

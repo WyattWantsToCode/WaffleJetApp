@@ -42,119 +42,124 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
         Scaffold(
           backgroundColor: Colors.transparent,
           body: SafeArea(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Stack(
               children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(children: [
-                      Container(
-                        width: double.infinity,
-                        height: 75,
-                        color: colorFourth,
-                      ),
-                      Hero(
-                        tag: widget.event.id + "image",
-                        child: Opacity(
-                          opacity: 1,
-                          child: Container(
-                            height: MediaQuery.of(context).size.width * .6,
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(children: [
+                          Container(
                             width: double.infinity,
-                            decoration: BoxDecoration(
-                                image: widget.image,
-                                color: colorThird,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(0))),
+                            height: 60,
+                            color: colorFourth,
                           ),
-                        ),
-                      ),
-                      Hero(
-                          tag: widget.event.id + "tag",
-                          child: Container(
-                            width: double.infinity,
-                            height: 7,
-                            color: colorMap[widget.event.tag],
-                          )),
-                      Hero(
-                        tag: widget.event.id + "title",
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black.withOpacity(.75),
-                                    blurRadius: 15,
-                                    offset: Offset(5, 5))
-                              ],
-                              color: colorFourth,
-                              borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(36),
-                                  bottomRight: Radius.circular(36))),
-                          child: Material(
-                            color: Colors.transparent,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 36, vertical: 12),
-                              child: Center(
-                                child: Text(
-                                  widget.event.title,
-                                  style: styleTitle,
+                          Hero(
+                            tag: widget.event.id + "image",
+                            child: Opacity(
+                              opacity: 1,
+                              child: Container(
+                                height: MediaQuery.of(context).size.width * .6,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    image: widget.image,
+                                    color: colorThird,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(0))),
+                              ),
+                            ),
+                          ),
+                          Hero(
+                              tag: widget.event.id + "tag",
+                              child: Container(
+                                width: double.infinity,
+                                height: 7,
+                                color: colorMap[widget.event.tag],
+                              )),
+                          Hero(
+                            tag: widget.event.id + "title",
+                            child: Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(.75),
+                                        blurRadius: 15,
+                                        offset: Offset(5, 5))
+                                  ],
+                                  color: colorFourth,
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(36),
+                                      bottomRight: Radius.circular(36))),
+                              child: Material(
+                                color: Colors.transparent,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 36, vertical: 12),
+                                  child: Center(
+                                    child: Text(
+                                      widget.event.title,
+                                      style: styleTitle,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(25.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black.withOpacity(.75),
-                                    blurRadius: 15,
-                                    offset: Offset(7, 7))
-                              ],
-                              color: colorFourth,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25))),
-                          child: Padding(
+                          Padding(
                             padding: const EdgeInsets.all(25.0),
-                            child: Column(
-                              children: [
-                                (widget.event.startTime != null)?
-                                timeAndDate(widget.event.startTime!) : Container(),
-                                (widget.event.startTime != null)?
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 20),
-                                  child:  Divider(
-                                    color: colorMap[widget.event.tag],
-                                    thickness: 4,
-                                  ) 
-                                ) : Container(),
-                                AnimatedOpacity(
-                                  opacity: opacity,
-                                  duration: Duration(seconds: 1),
-                                  child: Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Text(
-                                      widget.event.description,
-                                      style: styleBody,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black.withOpacity(.75),
+                                        blurRadius: 15,
+                                        offset: Offset(7, 7))
+                                  ],
+                                  color: colorFourth,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25))),
+                              child: Padding(
+                                padding: const EdgeInsets.all(25.0),
+                                child: Column(
+                                  children: [
+                                    (widget.event.startTime != null)?
+                                    timeAndDate(widget.event.startTime!) : Container(),
+                                    (widget.event.startTime != null)?
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.symmetric(vertical: 20),
+                                      child:  Divider(
+                                        color: colorMap[widget.event.tag],
+                                        thickness: 4,
+                                      ) 
+                                    ) : Container(),
+                                    AnimatedOpacity(
+                                      opacity: opacity,
+                                      duration: Duration(seconds: 1),
+                                      child: Align(
+                                        alignment: Alignment.topLeft,
+                                        child: SelectableText(
+                                          widget.event.description,
+                                          style: styleBody,
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
+                         
+                        ]),
                       ),
-                     
-                    ]),
-                  ),
+                    ),
+                    BottomBar(popBeforeNav: true,)
+                  ],
                 ),
-                BottomBar(popBeforeNav: true,)
+                appBar(context)
               ],
             ),
           ),
