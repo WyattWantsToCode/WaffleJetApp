@@ -42,8 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(children: [
                       welcomeBanner(context),
                   
-                      homeScreenSectionBuilder(context, "Events", "event"),
-                      homeScreenSectionBuilder(context, "Service Projects", "service project")
+                      homeScreenSectionBuilder(context, "Events"),
+                      homeScreenSectionBuilder(context, "Service Projects")
                     ]),
                   ),
                 ),
@@ -74,7 +74,7 @@ Widget welcomeBanner(BuildContext context) {
   );
 }
 
-Widget homeScreenSectionBuilder(BuildContext context, String label, String tag) {
+Widget homeScreenSectionBuilder(BuildContext context, String label) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 20),
     child: Column(
@@ -99,9 +99,9 @@ Widget homeScreenSectionBuilder(BuildContext context, String label, String tag) 
         ),
         Container(width: double.infinity,
         height: 7,
-        decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)), color: colorMap[tag]),
+        decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)), color: colorMap[label]),
         ),
-        futureCardBuilder(context, tag)
+        futureCardBuilder(context, label)
       ],
     ),
   );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/calendar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
+import 'package:qc_collegeandcareer/contact/contact_screen.dart';
 import 'package:qc_collegeandcareer/home/home_screen.dart';
 
 List<bool> currentPage = [true, false, false];
@@ -31,7 +32,7 @@ class _BottomBarState extends State<BottomBar> {
               createNavButton(context, widget.popBeforeNav,
                   Icons.calendar_month_outlined,  Icons.calendar_month, CalendarScreen(), 1),
               createNavButton(context, widget.popBeforeNav, Icons.people_outlined, Icons.people,
-                  HomeScreen(), 2),
+                  ContactScreen(), 2),
             ],
           ),
         ),

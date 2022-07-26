@@ -12,9 +12,9 @@ Color colorAccentSecond = Color.fromRGBO(96, 68, 52, 50);
 Color colorTransparent = Color.fromRGBO(57, 91, 100, 50);
 
 Map<String, Color> colorMap = {
-  "event": Colors.yellow.withOpacity(.75),
-  "special": Colors.blue.withOpacity(.75),
-  "service project": Colors.blue.withOpacity(.75)
+  "Events": Colors.yellow.withOpacity(.75),
+  "Contacts": Colors.green.withOpacity(.75),
+  "Service Projects": Colors.blue.withOpacity(.75)
 };
 
 TextStyle styleTitle = GoogleFonts.robotoCondensed(textStyle:  TextStyle(color: colorFirst, fontSize: 48, fontWeight: FontWeight.w300));
