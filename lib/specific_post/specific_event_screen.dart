@@ -123,15 +123,17 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                             padding: const EdgeInsets.all(25.0),
                             child: Column(
                               children: [
-                                timeAndDate(widget.event.startTime),
+                                (widget.event.startTime != null)?
+                                timeAndDate(widget.event.startTime!) : Container(),
+                                (widget.event.startTime != null)?
                                 Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 20),
-                                  child: Divider(
+                                  child:  Divider(
                                     color: colorMap[widget.event.tag],
                                     thickness: 4,
-                                  ),
-                                ),
+                                  ) 
+                                ) : Container(),
                                 AnimatedOpacity(
                                   opacity: opacity,
                                   duration: Duration(seconds: 1),
@@ -148,9 +150,7 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                           ),
                         ),
                       ),
-                      (widget.event.poll != null)
-                          ? PollWidget(poll: widget.event.poll!)
-                          : Container(),
+                     
                     ]),
                   ),
                 ),
