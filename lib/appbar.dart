@@ -3,22 +3,20 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/calendar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
+import 'package:qc_collegeandcareer/firebase.dart';
 import 'package:qc_collegeandcareer/home/home_screen.dart';
 
-Widget appBar(
-    BuildContext context) {
-  List<Widget> widgetList = [
-    
-  ];
+Widget appBar(BuildContext context) {
+  List<Widget> widgetList = [];
   return Row(
     mainAxisSize: MainAxisSize.max,
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      IndexedStack(children: [
-        
-        backArrow(context),
-      ],),
-      
+      IndexedStack(
+        children: [
+          backArrow(context),
+        ],
+      ),
     ],
   );
 }
@@ -40,7 +38,7 @@ Widget settingsIcon(BuildContext context) {
         child: Center(
           child: Icon(
             Icons.settings,
-            color: colorSecond,
+            color: getColorFromList(appSetup.colorMap["colorSecond"]),
             size: 30,
           ),
         ),
@@ -87,14 +85,13 @@ Widget ham() {
     width: 30,
     height: 5,
     decoration: BoxDecoration(
-        color: colorSecond,
+        color: getColorFromList(appSetup.colorMap["colorSecond"]),
         borderRadius: const BorderRadius.all(Radius.circular(2.5))),
   );
 }
 
 Widget backArrow(BuildContext context) {
   return Container(
-   
     decoration: BoxDecoration(
         color: colorFourth,
         borderRadius:
@@ -128,7 +125,7 @@ Widget arrowPieces(double rotation, double length) {
       width: length,
       height: 5,
       decoration: BoxDecoration(
-          color: colorSecond,
+          color: getColorFromList(appSetup.colorMap["colorSecond"]),
           borderRadius: const BorderRadius.all(Radius.circular(2.5))),
     ),
   );
@@ -138,15 +135,37 @@ Widget home() {
   return Padding(
     padding: const EdgeInsets.all(40.0),
     child: Container(
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-        container(Offset(0, 10), 25, pi/2, ),
-        container(Offset(0, -7), 25, pi/2, ),
-        container(Offset(10, 0), 25, 0, ),
-        container(Offset(-10, 0), 25, 0, ),
-        container(Offset(-9, -11), 27, pi/3.5,),
-        container(Offset(9, -11), 27, -pi/3.5, )
+      child: Stack(alignment: Alignment.center, children: [
+        container(
+          Offset(0, 10),
+          25,
+          pi / 2,
+        ),
+        container(
+          Offset(0, -7),
+          25,
+          pi / 2,
+        ),
+        container(
+          Offset(10, 0),
+          25,
+          0,
+        ),
+        container(
+          Offset(-10, 0),
+          25,
+          0,
+        ),
+        container(
+          Offset(-9, -11),
+          27,
+          pi / 3.5,
+        ),
+        container(
+          Offset(9, -11),
+          27,
+          -pi / 3.5,
+        )
       ]),
     ),
   );
@@ -160,9 +179,9 @@ Widget container(Offset offset, double length, double rotation) {
       child: Container(
         width: 5,
         height: length,
-      decoration: BoxDecoration(
-          color: colorSecond,
-          borderRadius: const BorderRadius.all(Radius.circular(2.5))),
+        decoration: BoxDecoration(
+            color: getColorFromList(appSetup.colorMap["colorSecond"]),
+            borderRadius: const BorderRadius.all(Radius.circular(2.5))),
       ),
     ),
   );

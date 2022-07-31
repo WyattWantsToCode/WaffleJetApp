@@ -34,7 +34,6 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
     });
 
     return Stack(
-
       children: [
         GradientBackground(
           color: colorMap[widget.event.tag]!,
@@ -54,7 +53,8 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                           Container(
                             width: double.infinity,
                             height: 60,
-                            color: colorFourth,
+                            color: getColorFromList(
+                                appSetup.colorMap["colorFourth"]),
                           ),
                           Hero(
                             tag: widget.event.id + "image",
@@ -65,7 +65,7 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                     image: widget.image,
-                                    color: colorThird,
+                                    color: getColorFromList(appSetup.colorMap["colorThird"]),
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(0))),
                               ),
@@ -89,7 +89,8 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                                         blurRadius: 15,
                                         offset: Offset(5, 5))
                                   ],
-                                  color: colorFourth,
+                                  color: getColorFromList(
+                                      appSetup.colorMap["colorFourth"]),
                                   borderRadius: BorderRadius.only(
                                       bottomLeft: Radius.circular(36),
                                       bottomRight: Radius.circular(36))),
@@ -118,24 +119,26 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                                         blurRadius: 15,
                                         offset: Offset(7, 7))
                                   ],
-                                  color: colorFourth,
+                                  color: getColorFromList(
+                                      appSetup.colorMap["colorFourth"]),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(25))),
                               child: Padding(
                                 padding: const EdgeInsets.all(25.0),
                                 child: Column(
                                   children: [
-                                    (widget.event.startTime != null)?
-                                    timeAndDate(widget.event.startTime!) : Container(),
-                                    (widget.event.startTime != null)?
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.symmetric(vertical: 20),
-                                      child:  Divider(
-                                        color: colorMap[widget.event.tag],
-                                        thickness: 4,
-                                      ) 
-                                    ) : Container(),
+                                    (widget.event.startTime != null)
+                                        ? timeAndDate(widget.event.startTime!)
+                                        : Container(),
+                                    (widget.event.startTime != null)
+                                        ? Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 20),
+                                            child: Divider(
+                                              color: colorMap[widget.event.tag],
+                                              thickness: 4,
+                                            ))
+                                        : Container(),
                                     AnimatedOpacity(
                                       opacity: opacity,
                                       duration: Duration(seconds: 1),
@@ -152,11 +155,12 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                               ),
                             ),
                           ),
-                         
                         ]),
                       ),
                     ),
-                    BottomBar(popBeforeNav: true,)
+                    BottomBar(
+                      popBeforeNav: true,
+                    )
                   ],
                 ),
                 appBar(context)
@@ -207,9 +211,6 @@ Widget timeAndDate(DateTime dateTime) {
   time = time + ":" + dateTime.minute.toString().padLeft(2, "0") + " " + ampm;
 
   return Wrap(
-
-    
-    
     children: [
       Text(
         "${dayList[dateTime.weekday - 1]}, ${monthList[dateTime.month - 1]} ${dateTime.day}  ",
@@ -269,13 +270,12 @@ class _GradientBackgroundState extends State<GradientBackground>
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      
       duration: Duration(seconds: 30),
       decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: alignmentList[alignmentIndex % alignmentList.length],
               end: alignmentList[(alignmentIndex + 2) % alignmentList.length],
-              colors: [widget.color, colorThird])),
+              colors: [widget.color, getColorFromList(appSetup.colorMap["colorThird"])])),
     );
   }
 }

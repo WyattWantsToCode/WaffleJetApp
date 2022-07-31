@@ -14,13 +14,12 @@ Widget eventWrap(BuildContext context, List<Event> list) {
     widgetList.add(eventCard(context, event));
   }
   return Wrap(
-
     children: widgetList,
   );
 }
 
 Widget eventCard(BuildContext context, Event event) {
-double sectionsWidth = 300;
+  double sectionsWidth = 300;
   double width = (MediaQuery.of(context).size.width /
           (MediaQuery.of(context).size.width / sectionsWidth).round()) -
       40;
@@ -52,89 +51,93 @@ double sectionsWidth = 300;
                       }));
                     },
                     child: Stack(alignment: Alignment.bottomCenter, children: [
-
-                     Hero(
-                    tag: event.id + "image",
-                    child: Opacity(
-                      opacity: .75,
-                      child: Container(
-                        height: height,
-                        width: width,
-                        decoration: BoxDecoration(
-                           boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(.75),
-                                  blurRadius: 15,
-                                  offset: Offset(7, 7))
-                            ],
-                            image: image,
-                            color: colorFourth,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(25))),
-                      ),
-                    ),
+                      Hero(
+                        tag: event.id + "image",
+                        child: Opacity(
+                          opacity: .75,
+                          child: Container(
+                            height: height,
+                            width: width,
+                            decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(.75),
+                                      blurRadius: 15,
+                                      offset: Offset(7, 7))
+                                ],
+                                image: image,
+                                color: getColorFromList(
+                                    appSetup.colorMap["colorFourth"]),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25))),
+                          ),
                         ),
-                        Hero(
-                    tag: event.id + "title",
-                    child: ClipRRect(
-                      
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(
-              sigmaX: 5.0,
-              sigmaY: 5.0,
-            ),
-                        child: Container(
-                          width: width,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              color: colorFourth.withOpacity(.85),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25))),
-                          child: Center(
-                              child: Material(
-                            color: Colors.transparent,
-                            child: AutoSizeText(
-                              
-                              event.title,
-                              style: styleSubtitle,
-                              maxLines: 1,
+                      ),
+                      Hero(
+                        tag: event.id + "title",
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(25)),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(
+                              sigmaX: 5.0,
+                              sigmaY: 5.0,
                             ),
-                          )),
+                            child: Container(
+                              width: width,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  color: getColorFromList(
+                                          appSetup.colorMap["colorFourth"])
+                                      .withOpacity(.85),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25))),
+                              child: Center(
+                                  child: Material(
+                                color: Colors.transparent,
+                                child: AutoSizeText(
+                                  event.title,
+                                  style: styleSubtitle,
+                                  maxLines: 1,
+                                ),
+                              )),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                        ),
-                        Positioned(
+                      Positioned(
                           top: 5,
                           left: 5,
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [ClipOval(
+                          child: Stack(alignment: Alignment.center, children: [
+                            ClipOval(
                               child: BackdropFilter(
                                 filter: ImageFilter.blur(
-              sigmaX: 1.0,
-              sigmaY: 1.0,
-            ),
+                                  sigmaX: 1.0,
+                                  sigmaY: 1.0,
+                                ),
                                 child: Container(
                                   width: 25,
                                   height: 25,
                                   decoration: BoxDecoration(
-                                    gradient: RadialGradient(colors: [colorThird, colorThird.withOpacity(.2)]),
-                                   shape: BoxShape.circle),),
+                                      gradient: RadialGradient(colors: [
+                                        getColorFromList(appSetup.colorMap["colorThird"]),
+                                        getColorFromList(appSetup.colorMap["colorThird"]).withOpacity(.2)
+                                      ]),
+                                      shape: BoxShape.circle),
+                                ),
                               ),
                             ),
-                               Hero(
-                                tag: event.id+"tag",
-                                 child: Container(
-                                                           
-                                                           width: 9,
-                                                           height: 9,
-                                                           decoration: BoxDecoration(color: colorMap[event.tag], shape: BoxShape.circle),),
-                               ),
-                            ]
-                          ))
-                      ]),
+                            Hero(
+                              tag: event.id + "tag",
+                              child: Container(
+                                width: 9,
+                                height: 9,
+                                decoration: BoxDecoration(
+                                    color: colorMap[event.tag],
+                                    shape: BoxShape.circle),
+                              ),
+                            ),
+                          ]))
+                    ]),
                   );
                 }
               }

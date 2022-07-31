@@ -25,9 +25,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
       children: [
         GradientBackground(color: colorAccentSecond),
         Scaffold(
-            backgroundColor: colorThird.withOpacity(.3),
+            backgroundColor: getColorFromList(appSetup.colorMap["colorThird"])
+                .withOpacity(.3),
             key: globalKey,
-
             body: SafeArea(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -109,15 +109,16 @@ class _CalendarState extends State<Calendar> {
       children: [
         Container(
             decoration: BoxDecoration(
-              
-              boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(.8),
-                                blurRadius: 25,
-                                offset: Offset(5, 5))
-                          ],
-                color: colorFourth,
-                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(36),bottomRight: Radius.circular(36))),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(.8),
+                      blurRadius: 25,
+                      offset: Offset(5, 5))
+                ],
+                color: getColorFromList(appSetup.colorMap["colorFourth"]),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(36),
+                    bottomRight: Radius.circular(36))),
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: TableCalendar(
@@ -190,12 +191,16 @@ CalendarStyle calendarStyle() {
     disabledTextStyle: styleBody.apply(fontSizeDelta: fontOffset),
     selectedTextStyle: styleBody.apply(fontSizeDelta: fontOffset),
     weekendTextStyle: styleBody.apply(fontSizeDelta: fontOffset),
-    outsideTextStyle:
-        styleBody.apply(fontSizeDelta: 0, color: colorSecond.withOpacity(.6)),
+    outsideTextStyle: styleBody.apply(
+        fontSizeDelta: 0,
+        color:
+            getColorFromList(appSetup.colorMap["colorSecond"]).withOpacity(.6)),
     cellMargin: EdgeInsets.all(0),
     cellPadding: EdgeInsets.all(10),
     selectedDecoration: BoxDecoration(
-        color: colorSecond.withOpacity(.6), shape: BoxShape.circle),
+        color:
+            getColorFromList(appSetup.colorMap["colorSecond"]).withOpacity(.6),
+        shape: BoxShape.circle),
     todayDecoration:
         BoxDecoration(color: colorTransparent, shape: BoxShape.circle),
   );
@@ -207,12 +212,12 @@ HeaderStyle headerStyle() {
       titleCentered: true,
       leftChevronIcon: Icon(
         Icons.chevron_left_rounded,
-        color: colorSecond,
+        color: getColorFromList(appSetup.colorMap["colorSecond"]),
         size: 40,
       ),
       rightChevronIcon: Icon(
         Icons.chevron_right_rounded,
-        color: colorSecond,
+        color: getColorFromList(appSetup.colorMap["colorSecond"]),
         size: 40,
       ),
       formatButtonVisible: false,
@@ -220,7 +225,7 @@ HeaderStyle headerStyle() {
       formatButtonTextStyle: styleBody,
       formatButtonDecoration: BoxDecoration(
           border: Border.fromBorderSide(BorderSide(
-            color: colorSecond,
+            color: getColorFromList(appSetup.colorMap["colorSecond"]),
           )),
           borderRadius: const BorderRadius.all(Radius.circular(12.0))));
 }

@@ -27,7 +27,7 @@ class _ContactScreenState extends State<ContactScreen> {
         Scaffold(
 
 
-          backgroundColor: colorThird.withOpacity(.3),
+          backgroundColor: getColorFromList(appSetup.colorMap["colorThird"]).withOpacity(.3),
           body: SafeArea(
             child: Column(
               mainAxisSize: MainAxisSize.max,

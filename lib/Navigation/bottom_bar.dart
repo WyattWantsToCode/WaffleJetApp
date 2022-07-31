@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/calendar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/contact/contact_screen.dart';
+import 'package:qc_collegeandcareer/firebase.dart';
 import 'package:qc_collegeandcareer/home/home_screen.dart';
 
 List<bool> currentPage = [true, false, false];
@@ -20,19 +21,24 @@ class _BottomBarState extends State<BottomBar> {
     return Hero(
       tag: "BottomBar",
       child: ClipRRect(
-
         child: Container(
-          color: colorFourth.withOpacity(.75),
+          color: getColorFromList(appSetup.colorMap["colorFourth"])
+              .withOpacity(.75),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              createNavButton(context, widget.popBeforeNav, Icons.home_outlined, Icons.home,
-                  HomeScreen(), 0),
+              createNavButton(context, widget.popBeforeNav, Icons.home_outlined,
+                  Icons.home, HomeScreen(), 0),
+              createNavButton(
+                  context,
+                  widget.popBeforeNav,
+                  Icons.calendar_month_outlined,
+                  Icons.calendar_month,
+                  CalendarScreen(),
+                  1),
               createNavButton(context, widget.popBeforeNav,
-                  Icons.calendar_month_outlined,  Icons.calendar_month, CalendarScreen(), 1),
-              createNavButton(context, widget.popBeforeNav, Icons.people_outlined, Icons.people,
-                  ContactScreen(), 2),
+                  Icons.people_outlined, Icons.people, ContactScreen(), 2),
             ],
           ),
         ),
@@ -63,9 +69,14 @@ Widget createNavButton(
         }));
       },
       child: Icon(
-        currentPage[pageNumber]? activeIconData : notActiveIconData,
-        color: colorSecond,
-        size: currentPage[pageNumber]? 35 : 30,
-        shadows: [Shadow(color: Colors.black.withOpacity(.5), blurRadius: 20, offset: Offset(5,5))],
+        currentPage[pageNumber] ? activeIconData : notActiveIconData,
+        color: getColorFromList(appSetup.colorMap["colorSecond"]),
+        size: currentPage[pageNumber] ? 35 : 30,
+        shadows: [
+          Shadow(
+              color: Colors.black.withOpacity(.5),
+              blurRadius: 20,
+              offset: Offset(5, 5))
+        ],
       ));
 }

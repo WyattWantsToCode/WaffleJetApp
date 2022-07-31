@@ -1,5 +1,7 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:qc_collegeandcareer/polls/firebase.dart';
+import 'package:flutter/material.dart';
 
 var db = FirebaseFirestore.instance;
 
@@ -98,3 +100,38 @@ Map<DateTime, List<Event>> getAllEventMap(List<Event> allEventList) {
   }
   return map;
 }
+
+class AppSetup {
+  Map<String, dynamic> homepageSetup;
+  Map<String, dynamic> contactSetup;
+  Map<String, dynamic> colorMap;
+
+  AppSetup(
+      {required this.homepageSetup,
+      required this.contactSetup,
+      required this.colorMap});
+}
+
+Color getColorFromList(List<int> list) {
+  return Color.fromRGBO(list[0], list[1], list[2], 1);
+}
+
+Map<String, dynamic> homepage = {
+  "Event": <int>[255, 0, 0, 1],
+  "Testing": <int>[0, 255, 0, 1]
+};
+
+Map<String, dynamic> contactSetup = {
+  "Contacts": <int>[0, 0, 255, 1],
+  "Testing": <int>[0, 255, 0, 1]
+};
+
+Map<String, dynamic> colors = {
+  "colorFirst": <int>[231, 246, 242,1],
+  "colorSecond": <int>[165, 201, 202,1],
+  "colorThird": <int>[57, 91, 100,1],
+  "colorFourth": <int>[44, 51, 51,1]
+};
+
+AppSetup appSetup = AppSetup(
+    homepageSetup: homepage, contactSetup: contactSetup, colorMap: colors);

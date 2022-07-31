@@ -23,33 +23,29 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        
         GradientBackground(color: colorAccentSecond),
         Scaffold(
           key: globalKey,
-
-          backgroundColor: colorThird.withOpacity(.3),
+          backgroundColor: getColorFromList(appSetup.colorMap["colorThird"]).withOpacity(.3),
           body: SafeArea(
             child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-              
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 35),
-                    child: Column(children: [
-                      welcomeBanner(context),
-                  
-                      homeScreenSectionBuilder(context, "Events"),
-                      homeScreenSectionBuilder(context, "Service Projects")
-                    ]),
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 35),
+                        child: Column(children: [
+                          welcomeBanner(context),
+                          homeScreenSectionBuilder(context, "Events"),
+                          homeScreenSectionBuilder(context, "Service Projects")
+                        ]),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-             BottomBar(),
-            ]),
+                  BottomBar(),
+                ]),
           ),
         ),
       ],
@@ -62,14 +58,17 @@ Widget welcomeBanner(BuildContext context) {
 
   return Container(
     height: height / 3,
-    
     child: Center(
         child: Icon(
-          
       Icons.kayaking,
       size: height / 3.2,
       color: colorFirst,
-      shadows: [Shadow(color: Colors.black.withOpacity(.5), blurRadius: 20, offset: Offset(7,7))],
+      shadows: [
+        Shadow(
+            color: Colors.black.withOpacity(.5),
+            blurRadius: 20,
+            offset: Offset(7, 7))
+      ],
     )),
   );
 }
@@ -82,24 +81,29 @@ Widget homeScreenSectionBuilder(BuildContext context, String label) {
         Container(
           height: 65,
           width: double.infinity,
-          
-          decoration: BoxDecoration( 
-            color: colorFourth,
+          decoration: BoxDecoration(
+            color: getColorFromList(appSetup.colorMap["colorFourth"]),
             boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(.75),
-                                  blurRadius: 15,
-                                  offset: Offset(7, 7))
-                            ],),
+              BoxShadow(
+                  color: Colors.black.withOpacity(.75),
+                  blurRadius: 15,
+                  offset: Offset(7, 7))
+            ],
+          ),
           child: Center(
               child: Text(
             label,
             style: styleTitle,
           )),
         ),
-        Container(width: double.infinity,
-        height: 7,
-        decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)), color: colorMap[label]),
+        Container(
+          width: double.infinity,
+          height: 7,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(10)),
+              color: colorMap[label]),
         ),
         futureCardBuilder(context, label)
       ],
