@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:qc_collegeandcareer/Navigation/bottom_bar.dart';
-import 'package:qc_collegeandcareer/appbar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/events/event_gridview.dart';
 
@@ -11,7 +9,7 @@ import 'package:qc_collegeandcareer/specific_post/specific_event_screen.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarScreen extends StatefulWidget {
-  CalendarScreen({Key? key}) : super(key: key);
+  const CalendarScreen({Key? key}) : super(key: key);
 
   @override
   State<CalendarScreen> createState() => _CalendarScreenState();
@@ -77,7 +75,7 @@ var _calendarFormat = CalendarFormat.month;
 List<Event> selectedEvent = <Event>[];
 
 class Calendar extends StatefulWidget {
-  Calendar({Key? key, required this.eventMap}) : super(key: key);
+  const Calendar({Key? key, required this.eventMap}) : super(key: key);
 
   final Map<DateTime, List<Event>> eventMap;
 
@@ -91,6 +89,7 @@ class _CalendarState extends State<Calendar> {
   }
 
   bool showEvent = false;
+  // ignore: prefer_typing_uninitialized_variables
   var markerEvent;
 
   void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -113,10 +112,10 @@ class _CalendarState extends State<Calendar> {
                   BoxShadow(
                       color: Colors.black.withOpacity(.8),
                       blurRadius: 25,
-                      offset: Offset(5, 5))
+                      offset: const Offset(5, 5))
                 ],
                 color: getColorFromList(appSetup.colorMap["colorFourth"]),
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(36),
                     bottomRight: Radius.circular(36))),
             child: Padding(
@@ -152,7 +151,7 @@ class _CalendarState extends State<Calendar> {
                 daysOfWeekHeight: 40,
                 calendarBuilders: CalendarBuilders(
                   markerBuilder: (context, day, events) {
-                    if (events.isEmpty) return SizedBox();
+                    if (events.isEmpty) return const SizedBox();
                     return ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
@@ -160,7 +159,7 @@ class _CalendarState extends State<Calendar> {
                         itemBuilder: (context, index) {
                           Event currentEvent = events[index] as Event;
                           return Container(
-                            margin: EdgeInsets.only(top: 40),
+                            margin: const EdgeInsets.only(top: 40),
                             child: Padding(
                               padding: const EdgeInsets.all(1.0),
                               child: Container(
@@ -195,8 +194,8 @@ CalendarStyle calendarStyle() {
         fontSizeDelta: 0,
         color:
             getColorFromList(appSetup.colorMap["colorSecond"]).withOpacity(.6)),
-    cellMargin: EdgeInsets.all(0),
-    cellPadding: EdgeInsets.all(10),
+    cellMargin: const EdgeInsets.all(0),
+    cellPadding: const EdgeInsets.all(10),
     selectedDecoration: BoxDecoration(
         color:
             getColorFromList(appSetup.colorMap["colorSecond"]).withOpacity(.6),

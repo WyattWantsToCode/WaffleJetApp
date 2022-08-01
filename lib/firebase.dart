@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +11,6 @@ Event mockEventOne = Event(
   description: "description",
   tag: "Tag1",
 );
-Event mockEventTwo = Event(
-    id: "2",
-    title: "Fun n' Mud",
-    startTime: DateTime.utc(2022, 7, 18),
-    description: "2 description",
-    tag: "Tag2");
 
 class Event {
   String id;
@@ -112,7 +105,7 @@ class AppSetup {
       required this.colorMap});
 }
 
-Color getColorFromList(List<int> list) {
+Color getColorFromList(List<dynamic> list) {
   return Color.fromRGBO(list[0], list[1], list[2], 1);
 }
 
@@ -128,21 +121,31 @@ Color getColorFromTag(String tag) {
 }
 
 Map<String, dynamic> homepage = {
-  "Events": <int>[255, 0, 0, 1],
-  "Testing": <int>[0, 255, 0, 1]
+  "Events": <int>[255, 0, 0],
+  "Testing": <int>[0, 255, 0]
 };
 
 Map<String, dynamic> contactSetup = {
-  "Contacts": <int>[0, 0, 255, 1],
-  "Testing": <int>[0, 255, 0, 1]
+  "Contacts": <int>[0, 0, 255],
+  "Testing": <int>[0, 255, 0]
 };
 
 Map<String, dynamic> colors = {
-  "colorFirst": <int>[231, 246, 242, 1],
-  "colorSecond": <int>[165, 201, 202, 1],
-  "colorThird": <int>[57, 91, 100, 1],
-  "colorFourth": <int>[44, 51, 51, 1]
+  "colorFirst": <int>[231, 246, 242],
+  "colorSecond": <int>[165, 201, 202],
+  "colorThird": <int>[57, 91, 100],
+  "colorFourth": <int>[44, 51, 51]
 };
 
 AppSetup appSetup = AppSetup(
     homepageSetup: homepage, contactSetup: contactSetup, colorMap: colors);
+
+Future<AppSetup> getAppSetupFromDB() async {
+  await db.collection("AppSetup").doc("AppSetup").get().then((value) {
+    appSetup = AppSetup(
+        homepageSetup: value.data()!["homepage"],
+        contactSetup: value.data()!["contactpage"],
+        colorMap: value.data()!["colorPallet"]);
+  });
+  return appSetup;
+}

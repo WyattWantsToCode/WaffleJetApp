@@ -1,13 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:qc_collegeandcareer/calendar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/firebase.dart';
-import 'package:qc_collegeandcareer/home/home_screen.dart';
 
 Widget appBar(BuildContext context) {
-  List<Widget> widgetList = [];
   return Row(
     mainAxisSize: MainAxisSize.max,
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,7 +59,7 @@ Widget hamburger(BuildContext context, GlobalKey<ScaffoldState> key) {
       child: Center(
         child: Opacity(
           opacity: 0,
-          child: Container(
+          child: SizedBox(
             height: 25,
             width: 30,
             child: Column(
@@ -103,7 +100,7 @@ Widget backArrow(BuildContext context) {
         onPressed: () {
           Navigator.pop(context);
         },
-        child: Container(
+        child: SizedBox(
           width: 30,
           height: 17,
           child:
@@ -134,40 +131,38 @@ Widget arrowPieces(double rotation, double length) {
 Widget home() {
   return Padding(
     padding: const EdgeInsets.all(40.0),
-    child: Container(
-      child: Stack(alignment: Alignment.center, children: [
-        container(
-          Offset(0, 10),
-          25,
-          pi / 2,
-        ),
-        container(
-          Offset(0, -7),
-          25,
-          pi / 2,
-        ),
-        container(
-          Offset(10, 0),
-          25,
-          0,
-        ),
-        container(
-          Offset(-10, 0),
-          25,
-          0,
-        ),
-        container(
-          Offset(-9, -11),
-          27,
-          pi / 3.5,
-        ),
-        container(
-          Offset(9, -11),
-          27,
-          -pi / 3.5,
-        )
-      ]),
-    ),
+    child: Stack(alignment: Alignment.center, children: [
+      container(
+        const Offset(0, 10),
+        25,
+        pi / 2,
+      ),
+      container(
+        const Offset(0, -7),
+        25,
+        pi / 2,
+      ),
+      container(
+        const Offset(10, 0),
+        25,
+        0,
+      ),
+      container(
+        const Offset(-10, 0),
+        25,
+        0,
+      ),
+      container(
+        const Offset(-9, -11),
+        27,
+        pi / 3.5,
+      ),
+      container(
+        const Offset(9, -11),
+        27,
+        -pi / 3.5,
+      )
+    ]),
   );
 }
 

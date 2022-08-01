@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/calendar.dart';
-import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/contact/contact_screen.dart';
 import 'package:qc_collegeandcareer/firebase.dart';
 import 'package:qc_collegeandcareer/home/home_screen.dart';
 
 List<bool> currentPage = [true, false, false];
 
+// ignore: must_be_immutable
 class BottomBar extends StatefulWidget {
   bool? popBeforeNav;
   BottomBar({Key? key, this.popBeforeNav}) : super(key: key);
@@ -29,16 +29,16 @@ class _BottomBarState extends State<BottomBar> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               createNavButton(context, widget.popBeforeNav, Icons.home_outlined,
-                  Icons.home, HomeScreen(), 0),
+                  Icons.home, const HomeScreen(), 0),
               createNavButton(
                   context,
                   widget.popBeforeNav,
                   Icons.calendar_month_outlined,
                   Icons.calendar_month,
-                  CalendarScreen(),
+                  const CalendarScreen(),
                   1),
               createNavButton(context, widget.popBeforeNav,
-                  Icons.people_outlined, Icons.people, ContactScreen(), 2),
+                  Icons.people_outlined, Icons.people, const ContactScreen(), 2),
             ],
           ),
         ),
@@ -76,7 +76,7 @@ Widget createNavButton(
           Shadow(
               color: Colors.black.withOpacity(.5),
               blurRadius: 20,
-              offset: Offset(5, 5))
+              offset: const Offset(5, 5))
         ],
       ));
 }

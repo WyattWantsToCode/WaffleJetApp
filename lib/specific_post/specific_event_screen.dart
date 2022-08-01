@@ -5,13 +5,13 @@ import 'package:qc_collegeandcareer/Navigation/bottom_bar.dart';
 import 'package:qc_collegeandcareer/appbar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/firebase.dart';
-import 'package:qc_collegeandcareer/polls/poll_widget.dart';
-import 'package:qc_collegeandcareer/storage.dart';
 
+
+// ignore: must_be_immutable
 class SpecificEventScreen extends StatefulWidget {
   Event event;
   DecorationImage image;
-  SpecificEventScreen({required this.event, required this.image});
+  SpecificEventScreen({Key? key, required this.event, required this.image}) : super(key: key);
 
   @override
   State<SpecificEventScreen> createState() => _SpecificEventScreenState();
@@ -24,7 +24,7 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       if (!animated) {
         setState(() {
           opacity = 1;
@@ -57,7 +57,7 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                                 appSetup.colorMap["colorFourth"]),
                           ),
                           Hero(
-                            tag: widget.event.id + "image",
+                            tag: "${widget.event.id}image",
                             child: Opacity(
                               opacity: 1,
                               child: Container(
@@ -67,19 +67,19 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                                     image: widget.image,
                                     color: getColorFromList(appSetup.colorMap["colorThird"]),
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(0))),
+                                        const BorderRadius.all(Radius.circular(0))),
                               ),
                             ),
                           ),
                           Hero(
-                              tag: widget.event.id + "tag",
+                              tag: "${widget.event.id}tag",
                               child: Container(
                                 width: double.infinity,
                                 height: 7,
                                 color: colorMap[widget.event.tag],
                               )),
                           Hero(
-                            tag: widget.event.id + "title",
+                            tag: "${widget.event.id}title",
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
@@ -87,11 +87,11 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                                     BoxShadow(
                                         color: Colors.black.withOpacity(.75),
                                         blurRadius: 15,
-                                        offset: Offset(5, 5))
+                                        offset: const Offset(5, 5))
                                   ],
                                   color: getColorFromList(
                                       appSetup.colorMap["colorFourth"]),
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                       bottomLeft: Radius.circular(36),
                                       bottomRight: Radius.circular(36))),
                               child: Material(
@@ -117,12 +117,12 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                                     BoxShadow(
                                         color: Colors.black.withOpacity(.75),
                                         blurRadius: 15,
-                                        offset: Offset(7, 7))
+                                        offset: const Offset(7, 7))
                                   ],
                                   color: getColorFromList(
                                       appSetup.colorMap["colorFourth"]),
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(25))),
+                                      const BorderRadius.all(Radius.circular(25))),
                               child: Padding(
                                 padding: const EdgeInsets.all(25.0),
                                 child: Column(
@@ -141,7 +141,7 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                                         : Container(),
                                     AnimatedOpacity(
                                       opacity: opacity,
-                                      duration: Duration(seconds: 1),
+                                      duration: const Duration(seconds: 1),
                                       child: Align(
                                         alignment: Alignment.topLeft,
                                         child: SelectableText(
@@ -208,7 +208,7 @@ Widget timeAndDate(DateTime dateTime) {
     time = dateTime.hour.toString();
   }
 
-  time = time + ":" + dateTime.minute.toString().padLeft(2, "0") + " " + ampm;
+  time = "$time:${dateTime.minute.toString().padLeft(2, "0")} $ampm";
 
   return Wrap(
     children: [
@@ -221,6 +221,7 @@ Widget timeAndDate(DateTime dateTime) {
   );
 }
 
+// ignore: must_be_immutable
 class GradientBackground extends StatefulWidget {
   Color color;
   GradientBackground({Key? key, required this.color}) : super(key: key);
@@ -252,7 +253,7 @@ class _GradientBackgroundState extends State<GradientBackground>
     Timer.periodic(
       interval,
       (Timer timer) {
-        if (this.mounted) {
+        if (mounted) {
           alignmentIndex++;
           setState(() {});
         }
@@ -270,7 +271,7 @@ class _GradientBackgroundState extends State<GradientBackground>
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: Duration(seconds: 30),
+      duration: const Duration(seconds: 30),
       decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: alignmentList[alignmentIndex % alignmentList.length],

@@ -1,6 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/Navigation/bottom_bar.dart';
-import 'package:qc_collegeandcareer/appbar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
 
 import 'package:qc_collegeandcareer/events/event_gridview.dart';
@@ -8,6 +8,7 @@ import 'package:qc_collegeandcareer/events/event_gridview.dart';
 import 'package:qc_collegeandcareer/firebase.dart';
 
 import 'package:qc_collegeandcareer/specific_post/specific_event_screen.dart';
+import 'package:qc_collegeandcareer/storage.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -42,11 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 35),
-                        child: Column(children: [
-                          welcomeBanner(context),
-                          ... sections
-                          
-                        ]),
+                        child: Column(
+                            children: [welcomeBanner(context), ...sections]),
                       ),
                     ),
                   ),
@@ -61,21 +59,33 @@ class _HomeScreenState extends State<HomeScreen> {
 
 Widget welcomeBanner(BuildContext context) {
   double height = MediaQuery.of(context).size.height;
+  return FutureBuilder(
+    future: getLogoURL(),
+    builder: ((context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.done) {
+        if (snapshot.hasError) {
+          return const Center(
+            child: Text("Error"),
+          );
+        } else if (snapshot.hasData) {
+          return SizedBox(
+              height: height / 3,
+              child: Center(
+                  child: CachedNetworkImage(
+                imageUrl: snapshot.data as String,
+                placeholder: (context, url) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              )));
+        }
+      }
 
-  return Container(
-    height: height / 3,
-    child: Center(
-        child: Icon(
-      Icons.kayaking,
-      size: height / 3.2,
-      color: colorFirst,
-      shadows: [
-        Shadow(
-            color: Colors.black.withOpacity(.5),
-            blurRadius: 20,
-            offset: Offset(7, 7))
-      ],
-    )),
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }),
   );
 }
 
@@ -93,7 +103,7 @@ Widget homeScreenSectionBuilder(BuildContext context, String label) {
               BoxShadow(
                   color: Colors.black.withOpacity(.75),
                   blurRadius: 15,
-                  offset: Offset(7, 7))
+                  offset: const Offset(7, 7))
             ],
           ),
           child: Center(
@@ -106,7 +116,7 @@ Widget homeScreenSectionBuilder(BuildContext context, String label) {
           width: double.infinity,
           height: 7,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(10),
                   bottomRight: Radius.circular(10)),
               color: getColorFromTag(label)),
@@ -130,7 +140,8 @@ Widget futureCardBuilder(BuildContext context, String tag) {
           List<Widget> widgetList = <Widget>[];
 
           for (var event in snapshot.data as List<Event>) {
-            widgetList.add(eventCard(context, event, getColorFromTag(event.tag)));
+            widgetList
+                .add(eventCard(context, event, getColorFromTag(event.tag)));
           }
 
           return Wrap(

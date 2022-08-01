@@ -12,6 +12,11 @@ Future<String> getImageURL(Event event) async {
   return string;
 }
 
+Future<String> getLogoURL() async {
+  String url = await storage.child("AppSetup/logo.png").getDownloadURL();
+  return url;
+}
+
 Future<String> selectPicture(ImageSource source) async {
   XFile? image = await ImagePicker().pickImage(source: source);
   return image?.path as String;
