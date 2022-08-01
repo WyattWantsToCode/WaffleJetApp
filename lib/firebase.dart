@@ -116,8 +116,19 @@ Color getColorFromList(List<int> list) {
   return Color.fromRGBO(list[0], list[1], list[2], 1);
 }
 
+Color getColorFromTag(String tag) {
+  Map<String, dynamic> map = {};
+  map.addAll(appSetup.homepageSetup);
+  map.addAll(appSetup.contactSetup);
+  if (map.containsKey(tag)) {
+    return getColorFromList(map[tag]);
+  } else {
+    return Colors.transparent;
+  }
+}
+
 Map<String, dynamic> homepage = {
-  "Event": <int>[255, 0, 0, 1],
+  "Events": <int>[255, 0, 0, 1],
   "Testing": <int>[0, 255, 0, 1]
 };
 
@@ -127,10 +138,10 @@ Map<String, dynamic> contactSetup = {
 };
 
 Map<String, dynamic> colors = {
-  "colorFirst": <int>[231, 246, 242,1],
-  "colorSecond": <int>[165, 201, 202,1],
-  "colorThird": <int>[57, 91, 100,1],
-  "colorFourth": <int>[44, 51, 51,1]
+  "colorFirst": <int>[231, 246, 242, 1],
+  "colorSecond": <int>[165, 201, 202, 1],
+  "colorThird": <int>[57, 91, 100, 1],
+  "colorFourth": <int>[44, 51, 51, 1]
 };
 
 AppSetup appSetup = AppSetup(

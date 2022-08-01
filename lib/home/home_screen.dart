@@ -21,12 +21,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> sections = <Widget>[];
+
+    appSetup.homepageSetup.forEach(((key, value) {
+      sections.add(homeScreenSectionBuilder(context, key));
+    }));
     return Stack(
       children: [
         GradientBackground(color: colorAccentSecond),
         Scaffold(
           key: globalKey,
-          backgroundColor: getColorFromList(appSetup.colorMap["colorThird"]).withOpacity(.3),
+          backgroundColor:
+              getColorFromList(appSetup.colorMap["colorThird"]).withOpacity(.3),
           body: SafeArea(
             child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -38,8 +44,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: const EdgeInsets.only(bottom: 35),
                         child: Column(children: [
                           welcomeBanner(context),
-                          homeScreenSectionBuilder(context, "Events"),
-                          homeScreenSectionBuilder(context, "Service Projects")
+                          ... sections
+                          
                         ]),
                       ),
                     ),
@@ -103,7 +109,7 @@ Widget homeScreenSectionBuilder(BuildContext context, String label) {
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(10),
                   bottomRight: Radius.circular(10)),
-              color: colorMap[label]),
+              color: getColorFromTag(label)),
         ),
         futureCardBuilder(context, label)
       ],
@@ -124,7 +130,7 @@ Widget futureCardBuilder(BuildContext context, String tag) {
           List<Widget> widgetList = <Widget>[];
 
           for (var event in snapshot.data as List<Event>) {
-            widgetList.add(eventCard(context, event));
+            widgetList.add(eventCard(context, event, getColorFromTag(event.tag)));
           }
 
           return Wrap(

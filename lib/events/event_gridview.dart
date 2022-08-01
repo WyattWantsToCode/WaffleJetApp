@@ -11,14 +11,14 @@ import 'package:qc_collegeandcareer/storage.dart';
 Widget eventWrap(BuildContext context, List<Event> list) {
   List<Widget> widgetList = <Widget>[];
   for (var event in list) {
-    widgetList.add(eventCard(context, event));
+    widgetList.add(eventCard(context, event, getColorFromTag(event.tag)));
   }
   return Wrap(
     children: widgetList,
   );
 }
 
-Widget eventCard(BuildContext context, Event event) {
+Widget eventCard(BuildContext context, Event event, Color tagColor) {
   double sectionsWidth = 300;
   double width = (MediaQuery.of(context).size.width /
           (MediaQuery.of(context).size.width / sectionsWidth).round()) -
@@ -132,7 +132,7 @@ Widget eventCard(BuildContext context, Event event) {
                                 width: 9,
                                 height: 9,
                                 decoration: BoxDecoration(
-                                    color: colorMap[event.tag],
+                                    color: tagColor,
                                     shape: BoxShape.circle),
                               ),
                             ),

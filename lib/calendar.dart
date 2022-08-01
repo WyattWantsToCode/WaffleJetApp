@@ -167,7 +167,7 @@ class _CalendarState extends State<Calendar> {
                                 width: 10,
                                 height: 10,
                                 decoration: BoxDecoration(
-                                    color: colorMap[currentEvent.tag],
+                                    color: getColorFromTag(currentEvent.tag),
                                     shape: BoxShape.circle),
                               ),
                             ),
