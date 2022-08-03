@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/logic/firebase.dart';
-import 'package:qc_collegeandcareer/firebase_options.dart';
+import 'package:qc_collegeandcareer/logic/firebase_options.dart';
 import 'package:qc_collegeandcareer/home/home_screen.dart';
 
 
