@@ -6,7 +6,7 @@ import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/firebase.dart';
 import 'package:qc_collegeandcareer/home/home_screen.dart';
 
-import 'package:qc_collegeandcareer/specific_post/specific_event_screen.dart';
+import 'package:qc_collegeandcareer/events/specific_event_screen.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({Key? key}) : super(key: key);

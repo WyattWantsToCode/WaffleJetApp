@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/Navigation/bottom_bar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
 
-import 'package:qc_collegeandcareer/events/event_gridview.dart';
+import 'package:qc_collegeandcareer/events/event_card.dart';
 
 import 'package:qc_collegeandcareer/firebase.dart';
 
-import 'package:qc_collegeandcareer/specific_post/specific_event_screen.dart';
+import 'package:qc_collegeandcareer/events/specific_event_screen.dart';
 import 'package:qc_collegeandcareer/storage.dart';
 
 class HomeScreen extends StatefulWidget {
