@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/logic/appsetup.dart';
-import 'package:qc_collegeandcareer/logic/firebase.dart';
 
 Widget appBar(BuildContext context) {
   return Row(

@@ -4,7 +4,6 @@ import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/logic/appsetup.dart';
 
 
-import 'package:qc_collegeandcareer/logic/firebase.dart';
 import 'package:qc_collegeandcareer/home/home_screen.dart';
 
 import 'package:qc_collegeandcareer/events/specific_event_screen.dart';
