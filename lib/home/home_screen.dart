@@ -5,10 +5,10 @@ import 'package:qc_collegeandcareer/color_pallet.dart';
 
 import 'package:qc_collegeandcareer/events/event_card.dart';
 
-import 'package:qc_collegeandcareer/firebase.dart';
+import 'package:qc_collegeandcareer/logic/firebase.dart';
 
 import 'package:qc_collegeandcareer/events/specific_event_screen.dart';
-import 'package:qc_collegeandcareer/storage.dart';
+import 'package:qc_collegeandcareer/logic/storage.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

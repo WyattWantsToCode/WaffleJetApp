@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/Navigation/bottom_bar.dart';
-import 'package:qc_collegeandcareer/appbar.dart';
+import 'package:qc_collegeandcareer/Navigation/appbar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
-import 'package:qc_collegeandcareer/firebase.dart';
+import 'package:qc_collegeandcareer/logic/firebase.dart';
 
 
 // ignore: must_be_immutable

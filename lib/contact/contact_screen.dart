@@ -3,7 +3,7 @@ import 'package:qc_collegeandcareer/Navigation/bottom_bar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
 
 
-import 'package:qc_collegeandcareer/firebase.dart';
+import 'package:qc_collegeandcareer/logic/firebase.dart';
 import 'package:qc_collegeandcareer/home/home_screen.dart';
 
 import 'package:qc_collegeandcareer/events/specific_event_screen.dart';

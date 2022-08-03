@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/calendar.dart';
 import 'package:qc_collegeandcareer/contact/contact_screen.dart';
-import 'package:qc_collegeandcareer/firebase.dart';
+import 'package:qc_collegeandcareer/logic/firebase.dart';
 import 'package:qc_collegeandcareer/home/home_screen.dart';
 
 List<bool> currentPage = [true, false, false];
