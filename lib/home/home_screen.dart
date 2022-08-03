@@ -4,6 +4,7 @@ import 'package:qc_collegeandcareer/Navigation/bottom_bar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
 
 import 'package:qc_collegeandcareer/events/event_card.dart';
+import 'package:qc_collegeandcareer/logic/appsetup.dart';
 
 import 'package:qc_collegeandcareer/logic/firebase.dart';
 

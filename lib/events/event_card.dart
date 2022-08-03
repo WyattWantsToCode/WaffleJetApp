@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
+import 'package:qc_collegeandcareer/logic/appsetup.dart';
 import 'package:qc_collegeandcareer/logic/firebase.dart';
 import 'package:qc_collegeandcareer/events/specific_event_screen.dart';
 import 'package:qc_collegeandcareer/logic/storage.dart';
