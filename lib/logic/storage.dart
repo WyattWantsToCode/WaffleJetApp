@@ -17,13 +17,4 @@ Future<String> getLogoURL() async {
   return url;
 }
 
-Future<String> selectPicture(ImageSource source) async {
-  XFile? image = await ImagePicker().pickImage(source: source);
-  return image?.path as String;
-}
 
-void uploadToStorage(String id) async {
-  String path = await selectPicture(ImageSource.gallery);
-  Uint8List imageData = await XFile(path).readAsBytes();
-  storage.child(id).putData(imageData);
-}
