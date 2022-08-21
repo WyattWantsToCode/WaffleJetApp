@@ -6,7 +6,7 @@ import 'package:qc_collegeandcareer/logic/appsetup.dart';
 
 import 'package:qc_collegeandcareer/logic/firebase.dart';
 
-import 'package:qc_collegeandcareer/events/specific_event_screen.dart';
+import 'package:qc_collegeandcareer/events/specific_events/specific_event_screen.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarScreen extends StatefulWidget {

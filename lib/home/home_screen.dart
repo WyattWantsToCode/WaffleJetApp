@@ -8,7 +8,7 @@ import 'package:qc_collegeandcareer/logic/appsetup.dart';
 
 import 'package:qc_collegeandcareer/logic/firebase.dart';
 
-import 'package:qc_collegeandcareer/events/specific_event_screen.dart';
+import 'package:qc_collegeandcareer/events/specific_events/specific_event_screen.dart';
 import 'package:qc_collegeandcareer/logic/storage.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -69,17 +69,22 @@ Widget welcomeBanner(BuildContext context) {
             child: Text("Error"),
           );
         } else if (snapshot.hasData) {
-          return SizedBox(
-              height: height / 3,
-              child: Center(
-                  child: CachedNetworkImage(
-                imageUrl: snapshot.data as String,
-                placeholder: (context, url) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                },
-              )));
+          return GestureDetector(
+            onLongPress: () {
+               editMode = true;
+            },
+            child: SizedBox(
+                height: height / 3,
+                child: Center(
+                    child: CachedNetworkImage(
+                  imageUrl: snapshot.data as String,
+                  placeholder: (context, url) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  },
+                ))),
+          );
         }
       }
 

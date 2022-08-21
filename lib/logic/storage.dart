@@ -9,14 +9,14 @@ final storage = FirebaseStorage.instance.ref();
 
 Future<String> getImageURL(Event event) async {
   String string = await storage.child(event.id).getDownloadURL();
-  return "https://drive.google.com/uc?export=view&id=10G_htCy4i8A5iApwDtWWWrVCh4SJ8bdb";
+  return string;
 
   
 }
 
 Future<String> getLogoURL() async {
   String url = await storage.child("AppSetup/logo.png").getDownloadURL();
-  return "https://drive.google.com/uc?export=view&id=10G_htCy4i8A5iApwDtWWWrVCh4SJ8bdb";
+  return url;
 }
 
 

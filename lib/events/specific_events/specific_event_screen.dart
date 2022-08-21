@@ -4,15 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/Navigation/bottom_bar.dart';
 import 'package:qc_collegeandcareer/Navigation/appbar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
+import 'package:qc_collegeandcareer/events/specific_events/time_and_date.dart';
 import 'package:qc_collegeandcareer/logic/appsetup.dart';
 import 'package:qc_collegeandcareer/logic/firebase.dart';
 
-
 // ignore: must_be_immutable
+
+bool editMode = false;
+
 class SpecificEventScreen extends StatefulWidget {
   Event event;
   DecorationImage image;
-  SpecificEventScreen({Key? key, required this.event, required this.image}) : super(key: key);
+  SpecificEventScreen({Key? key, required this.event, required this.image})
+      : super(key: key);
 
   @override
   State<SpecificEventScreen> createState() => _SpecificEventScreenState();
@@ -66,9 +70,10 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                                 width: double.infinity,
                                 decoration: BoxDecoration(
                                     image: widget.image,
-                                    color: getColorFromList(appSetup.colorMap["colorThird"]),
-                                    borderRadius:
-                                        const BorderRadius.all(Radius.circular(0))),
+                                    color: getColorFromList(
+                                        appSetup.colorMap["colorThird"]),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(0))),
                               ),
                             ),
                           ),
@@ -122,8 +127,8 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                                   ],
                                   color: getColorFromList(
                                       appSetup.colorMap["colorFourth"]),
-                                  borderRadius:
-                                      const BorderRadius.all(Radius.circular(25))),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(25))),
                               child: Padding(
                                 padding: const EdgeInsets.all(25.0),
                                 child: Column(
@@ -170,114 +175,6 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
           ),
         )
       ],
-    );
-  }
-}
-
-Widget timeAndDate(DateTime dateTime) {
-  List<String> monthList = <String>[
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec"
-  ];
-  List<String> dayList = <String>[
-    "Sunday",
-    "Monday",
-    "Tueday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ];
-
-  String time = "";
-  String ampm = "AM";
-
-  if (dateTime.hour > 12) {
-    time = (dateTime.hour - 12).toString();
-    ampm = "PM";
-  } else {
-    time = dateTime.hour.toString();
-  }
-
-  time = "$time:${dateTime.minute.toString().padLeft(2, "0")} $ampm";
-
-  return Wrap(
-    children: [
-      Text(
-        "${dayList[dateTime.weekday - 1]}, ${monthList[dateTime.month - 1]} ${dateTime.day}  ",
-        style: styleSubtitle,
-      ),
-      Text(time, style: styleSubtitle)
-    ],
-  );
-}
-
-// ignore: must_be_immutable
-class GradientBackground extends StatefulWidget {
-  Color color;
-  GradientBackground({Key? key, required this.color}) : super(key: key);
-
-  @override
-  State<GradientBackground> createState() => _GradientBackgroundState();
-}
-
-class _GradientBackgroundState extends State<GradientBackground>
-    with SingleTickerProviderStateMixin {
-  List<Alignment> alignmentList = [
-    Alignment.bottomLeft,
-    Alignment.bottomRight,
-    Alignment.topRight,
-    Alignment.topLeft,
-  ];
-
-  int alignmentIndex = 0;
-  bool cancelTimer = false;
-
-  _startBgColorAnimationTimer() {
-    ///Animating for the first time.
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      alignmentIndex++;
-      setState(() {});
-    });
-
-    const interval = Duration(seconds: 30);
-    Timer.periodic(
-      interval,
-      (Timer timer) {
-        if (mounted) {
-          alignmentIndex++;
-          setState(() {});
-        }
-      },
-    );
-  }
-
-  @override
-  void initState() {
-    _startBgColorAnimationTimer();
-    super.initState();
-  }
-
-  @override
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(seconds: 30),
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: alignmentList[alignmentIndex % alignmentList.length],
-              end: alignmentList[(alignmentIndex + 2) % alignmentList.length],
-              colors: [widget.color, getColorFromList(appSetup.colorMap["colorThird"])])),
     );
   }
 }

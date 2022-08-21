@@ -6,7 +6,7 @@ import 'package:qc_collegeandcareer/logic/appsetup.dart';
 
 import 'package:qc_collegeandcareer/home/home_screen.dart';
 
-import 'package:qc_collegeandcareer/events/specific_event_screen.dart';
+import 'package:qc_collegeandcareer/events/specific_events/specific_event_screen.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({Key? key}) : super(key: key);
