@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
+import 'package:qc_collegeandcareer/logic/appsetup.dart';
 import 'package:qc_collegeandcareer/logic/firebase.dart';
 
 class TagWidget extends StatefulWidget {
@@ -21,7 +22,7 @@ class _TagWidgetState extends State<TagWidget> {
         child: Container(
           width: double.infinity,
           height: 7,
-          color: colorMap[widget.event.tag],
+          color: getColorFromTag(widget.event.tag),
         ));
   }
 }

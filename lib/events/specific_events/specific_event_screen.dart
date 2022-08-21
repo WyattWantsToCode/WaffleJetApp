@@ -42,7 +42,7 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
     return Stack(
       children: [
         GradientBackground(
-          color: colorMap[widget.event.tag]!,
+          color: getColorFromTag(widget.event.tag),
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
@@ -136,7 +136,7 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 20),
                                             child: Divider(
-                                              color: colorMap[widget.event.tag],
+                                              color: getColorFromTag(widget.event.tag),
                                               thickness: 4,
                                             ))
                                         : Container(),

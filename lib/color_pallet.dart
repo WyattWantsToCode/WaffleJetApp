@@ -14,11 +14,12 @@ Color colorAccentSecond = const Color.fromRGBO(96, 68, 52, 50);
 
 Color colorTransparent = const Color.fromRGBO(57, 91, 100, 50);
 
-Map<String, Color> colorMap = {
+/*Map<String, Color> colorMap = {
   "Events": Colors.yellow.withOpacity(.75),
   "Contacts": Colors.green.withOpacity(.75),
   "Service Projects": Colors.blue.withOpacity(.75)
 };
+*/
 
 TextStyle styleTitle = GoogleFonts.robotoCondensed(textStyle:  TextStyle(color: colorFirst, fontSize: 48, fontWeight: FontWeight.w300));
 TextStyle styleSubtitle = GoogleFonts.cabin(textStyle:  TextStyle(color: colorFirst, fontSize: 28, fontWeight: FontWeight.w400));
