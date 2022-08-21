@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:qc_collegeandcareer/logic/appsetup.dart';
 
@@ -26,6 +25,27 @@ class Event {
     required this.description,
     required this.tag,
   });
+}
+
+Map<String, dynamic> eventToMap(Event event) {
+  Map<String, dynamic> map = {
+    "id": event.id,
+    "title": event.title,
+    "description": event.description,
+    "tag": event.tag
+  };
+  if (event.startTime != null) {
+    map.addAll({"startTime": event.startTime});
+  }
+  return map;
+}
+
+void updateEventOnDB(Event event) {
+  db.collection("Events").doc(event.id).update(eventToMap(event));
+}
+
+void addEventToDB(Event event){
+  db.collection("Events").doc(event.id).set(eventToMap(event));
 }
 
 Event mapToEvent(Map<String, dynamic> map) {
@@ -93,8 +113,6 @@ Map<DateTime, List<Event>> getAllEventMap(List<Event> allEventList) {
   }
   return map;
 }
-
-
 
 Future<AppSetup> getAppSetupFromDB() async {
   await db.collection("AppSetup").doc("AppSetup").get().then((value) {
