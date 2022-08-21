@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/Navigation/bottom_bar.dart';
 import 'package:qc_collegeandcareer/Navigation/appbar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
+import 'package:qc_collegeandcareer/events/specific_events/image.dart';
 import 'package:qc_collegeandcareer/events/specific_events/tag.dart';
 import 'package:qc_collegeandcareer/events/specific_events/time_and_date.dart';
+import 'package:qc_collegeandcareer/events/specific_events/title.dart';
 import 'package:qc_collegeandcareer/logic/appsetup.dart';
 import 'package:qc_collegeandcareer/logic/firebase.dart';
 
@@ -62,54 +64,9 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                             color: getColorFromList(
                                 appSetup.colorMap["colorFourth"]),
                           ),
-                          Hero(
-                            tag: "${widget.event.id}image",
-                            child: Opacity(
-                              opacity: 1,
-                              child: Container(
-                                height: MediaQuery.of(context).size.width * .6,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    image: widget.image,
-                                    color: getColorFromList(
-                                        appSetup.colorMap["colorThird"]),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(0))),
-                              ),
-                            ),
-                          ),
+                          ImageWidget(event: widget.event, image: widget.image),
                           TagWidget(event: widget.event,),
-                          Hero(
-                            tag: "${widget.event.id}title",
-                            child: Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black.withOpacity(.75),
-                                        blurRadius: 15,
-                                        offset: const Offset(5, 5))
-                                  ],
-                                  color: getColorFromList(
-                                      appSetup.colorMap["colorFourth"]),
-                                  borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(36),
-                                      bottomRight: Radius.circular(36))),
-                              child: Material(
-                                color: Colors.transparent,
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 36, vertical: 12),
-                                  child: Center(
-                                    child: Text(
-                                      widget.event.title,
-                                      style: styleTitle,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                          TitleWidget(event: widget.event),
                           Padding(
                             padding: const EdgeInsets.all(25.0),
                             child: Container(
@@ -173,5 +130,8 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
     );
   }
 }
+
+
+
 
 
