@@ -18,16 +18,13 @@ class _ImageWidgetState extends State<ImageWidget> {
   Widget build(BuildContext context) {
     return Hero(
       tag: "${widget.event.id}image",
-      child: Opacity(
-        opacity: 1,
-        child: Container(
-          height: MediaQuery.of(context).size.width * .6,
-          width: double.infinity,
-          decoration: BoxDecoration(
-              image: widget.image,
-              color: getColorFromList(appSetup.colorMap["colorThird"]),
-              borderRadius: const BorderRadius.all(Radius.circular(0))),
-        ),
+      child: Container(
+        height: MediaQuery.of(context).size.width * .6,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            image: widget.image,
+            color: getColorFromList(appSetup.colorMap["colorThird"]),
+            borderRadius: const BorderRadius.all(Radius.circular(0))),
       ),
     );
   }

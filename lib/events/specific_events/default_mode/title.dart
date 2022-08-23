@@ -3,23 +3,17 @@ import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/logic/appsetup.dart';
 import 'package:qc_collegeandcareer/logic/firebase.dart';
 
-class TitleWidget extends StatefulWidget {
+class TitleWidget extends StatelessWidget {
  TitleWidget({
     Key? key,
     required this.event
   }) : super(key: key);
 
   Event event;
-
-  @override
-  State<TitleWidget> createState() => _TitleWidgetState();
-}
-
-class _TitleWidgetState extends State<TitleWidget> {
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: "${widget.event.id}title",
+      tag: "${event.id}title",
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
@@ -39,7 +33,7 @@ class _TitleWidgetState extends State<TitleWidget> {
             padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 12),
             child: Center(
               child: Text(
-                widget.event.title,
+                event.title,
                 style: styleTitle,
               ),
             ),
@@ -49,3 +43,5 @@ class _TitleWidgetState extends State<TitleWidget> {
     );
   }
 }
+
+

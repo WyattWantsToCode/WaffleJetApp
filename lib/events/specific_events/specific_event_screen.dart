@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:qc_collegeandcareer/Navigation/bottom_bar.dart';
 import 'package:qc_collegeandcareer/Navigation/appbar.dart';
 import 'package:qc_collegeandcareer/color_pallet.dart';
-import 'package:qc_collegeandcareer/events/specific_events/image.dart';
-import 'package:qc_collegeandcareer/events/specific_events/tag.dart';
-import 'package:qc_collegeandcareer/events/specific_events/time_and_date.dart';
-import 'package:qc_collegeandcareer/events/specific_events/title.dart';
+import 'package:qc_collegeandcareer/events/specific_events/default_mode/image.dart';
+import 'package:qc_collegeandcareer/events/specific_events/default_mode/tag.dart';
+import 'package:qc_collegeandcareer/events/specific_events/default_mode/time_and_date.dart';
+import 'package:qc_collegeandcareer/events/specific_events/default_mode/title.dart';
+
 import 'package:qc_collegeandcareer/logic/appsetup.dart';
 import 'package:qc_collegeandcareer/logic/firebase.dart';
 

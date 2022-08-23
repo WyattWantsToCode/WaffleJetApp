@@ -3,7 +3,7 @@ import 'package:qc_collegeandcareer/color_pallet.dart';
 import 'package:qc_collegeandcareer/logic/appsetup.dart';
 import 'package:qc_collegeandcareer/logic/firebase.dart';
 
-class TagWidget extends StatefulWidget {
+class TagWidget extends StatelessWidget {
   final Event event;
   const TagWidget({
     Key? key,
@@ -11,18 +11,13 @@ class TagWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<TagWidget> createState() => _TagWidgetState();
-}
-
-class _TagWidgetState extends State<TagWidget> {
-  @override
   Widget build(BuildContext context) {
     return Hero(
-        tag: "${widget.event.id}tag",
+        tag: "${event.id}tag",
         child: Container(
           width: double.infinity,
           height: 7,
-          color: getColorFromTag(widget.event.tag),
+          color: getColorFromTag(event.tag),
         ));
   }
 }
