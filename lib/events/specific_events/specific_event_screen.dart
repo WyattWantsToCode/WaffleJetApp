@@ -8,6 +8,7 @@ import 'package:qc_collegeandcareer/events/specific_events/default_mode/image.da
 import 'package:qc_collegeandcareer/events/specific_events/default_mode/tag.dart';
 import 'package:qc_collegeandcareer/events/specific_events/default_mode/time_and_date.dart';
 import 'package:qc_collegeandcareer/events/specific_events/default_mode/title.dart';
+import 'package:qc_collegeandcareer/events/specific_events/editing_mode/image.dart';
 
 import 'package:qc_collegeandcareer/logic/appsetup.dart';
 import 'package:qc_collegeandcareer/logic/firebase.dart';
@@ -15,6 +16,7 @@ import 'package:qc_collegeandcareer/logic/firebase.dart';
 // ignore: must_be_immutable
 
 bool editMode = false;
+bool admin = true;
 
 class SpecificEventScreen extends StatefulWidget {
   Event event;
@@ -33,6 +35,46 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
 
   @override
   Widget build(BuildContext context) {
+    Widget Buttons() {
+      return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: 
+        
+         Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: (editMode)? MainAxisAlignment.spaceEvenly : MainAxisAlignment.center,
+           children: [
+             ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: getColorFromList(appSetup.colorMap["colorSecond"])),
+                onPressed: () {
+                  setState(() {
+                    editMode = !editMode;
+                  });
+                },
+                child: Text(
+                  (editMode)? "Cancel":"Edit",
+                  style: styleSubtitle.apply(
+                      color: getColorFromList(appSetup.colorMap["colorFourth"])),
+                )),
+                (editMode)?  ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: getColorFromList(appSetup.colorMap["colorSecond"])),
+                onPressed: () {
+                  setState(() {
+                    
+                  });
+                },
+                child: Text(
+                  "Save",
+                  style: styleSubtitle.apply(
+                      color: getColorFromList(appSetup.colorMap["colorFourth"])),
+                )) : Container()
+           ],
+         ),
+      );
+    }
+
     Future.delayed(const Duration(milliseconds: 500), () {
       if (!animated) {
         setState(() {
@@ -65,8 +107,15 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                             color: getColorFromList(
                                 appSetup.colorMap["colorFourth"]),
                           ),
-                          ImageWidget(event: widget.event, image: widget.image),
-                          TagWidget(event: widget.event,),
+                          (admin) ? Buttons() : Container(),
+                          (editMode)
+                              ? ImageEditing(
+                                  event: widget.event, image: widget.image)
+                              : ImageWidget(
+                                  event: widget.event, image: widget.image),
+                          TagWidget(
+                            event: widget.event,
+                          ),
                           TitleWidget(event: widget.event),
                           Padding(
                             padding: const EdgeInsets.all(25.0),
@@ -94,7 +143,8 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 20),
                                             child: Divider(
-                                              color: getColorFromTag(widget.event.tag),
+                                              color: getColorFromTag(
+                                                  widget.event.tag),
                                               thickness: 4,
                                             ))
                                         : Container(),
@@ -131,8 +181,3 @@ class _SpecificEventScreenState extends State<SpecificEventScreen>
     );
   }
 }
-
-
-
-
-
