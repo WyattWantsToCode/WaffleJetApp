@@ -10,8 +10,6 @@ final storage = FirebaseStorage.instance.ref();
 Future<String> getImageURL(Event event) async {
   String string = await storage.child(event.id).getDownloadURL();
   return string;
-
-  
 }
 
 Future<String> getLogoURL() async {
@@ -33,7 +31,7 @@ void uploadToStorage(String id) async {
   }
 }
 
-void replaceImageInStorage(String id) async {
+Future<void> replaceImageInStorage(String id) async {
   String path = await selectPicture(ImageSource.gallery);
 
   if (path.isNotEmpty) {
@@ -42,5 +40,3 @@ void replaceImageInStorage(String id) async {
     storage.child(id).putData(imageData);
   }
 }
-
-

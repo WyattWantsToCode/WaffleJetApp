@@ -9,6 +9,7 @@ Event mockEventOne = Event(
   startTime: DateTime.utc(2022, 7, 17, 0, 0),
   description: "description",
   tag: "Tag1",
+  imageURL: "No URL"
 );
 
 class Event {
@@ -17,6 +18,7 @@ class Event {
   DateTime? startTime;
   String description;
   String tag;
+  String imageURL;
 
   Event({
     required this.id,
@@ -24,6 +26,7 @@ class Event {
     required this.startTime,
     required this.description,
     required this.tag,
+    required this.imageURL,
   });
 }
 
@@ -60,6 +63,7 @@ Event mapToEvent(Map<String, dynamic> map) {
     startTime: time,
     description: map["description"],
     tag: map["tag"],
+    imageURL: map["imageURL"]
   );
 }
 
