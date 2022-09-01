@@ -123,7 +123,9 @@ Future<AppSetup> getAppSetupFromDB() async {
     appSetup = AppSetup(
         homepageSetup: value.data()!["homepage"],
         contactSetup: value.data()!["contactpage"],
-        colorMap: value.data()!["colorPallet"]);
+        colorMap: value.data()!["colorPallet"],
+        logoID: value.data()!["logoID"]
+        );
   });
   return appSetup;
 }

@@ -3,18 +3,20 @@ import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:qc_collegeandcareer/logic/appsetup.dart';
 import 'package:qc_collegeandcareer/logic/firebase.dart';
 
 final storage = FirebaseStorage.instance.ref();
 
 Future<String> getImageURL(Event event) async {
-  String string = await storage.child(event.id).getDownloadURL();
-  return string;
-}
+  //String string = await storage.child(event.id).getDownloadURL();
+  return "https://drive.google.com/uc?export=view&id=${event.imageURL}";
 
+}
+//https://drive.google.com/file/d/1zx1S-hpYnVf85xAAZM6imCAIpe20y0UQ/view?usp=sharing
 Future<String> getLogoURL() async {
   String url = await storage.child("AppSetup/logo.png").getDownloadURL();
-  return url;
+  return "https://drive.google.com/uc?export=view&id=${appSetup.logoID}";
 }
 
 Future<String> selectPicture(ImageSource source) async {

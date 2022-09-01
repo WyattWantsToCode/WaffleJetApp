@@ -71,13 +71,14 @@ Widget welcomeBanner(BuildContext context) {
         } else if (snapshot.hasData) {
           return GestureDetector(
             onLongPress: () {
-               editMode = true;
+              editMode = true;
             },
             child: SizedBox(
                 height: height / 3,
                 child: Center(
                     child: CachedNetworkImage(
-                  imageUrl: snapshot.data as String,
+                  imageUrl:
+                     snapshot.data as String,
                   placeholder: (context, url) {
                     return const Center(
                       child: CircularProgressIndicator(),

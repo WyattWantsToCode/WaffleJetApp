@@ -4,11 +4,14 @@ class AppSetup {
   Map<String, dynamic> homepageSetup;
   Map<String, dynamic> contactSetup;
   Map<String, dynamic> colorMap;
+  String logoID;
 
   AppSetup(
       {required this.homepageSetup,
       required this.contactSetup,
-      required this.colorMap});
+      required this.colorMap,
+      required this.logoID
+      });
 }
 
 Color getColorFromList(List<dynamic> list) {
@@ -44,4 +47,4 @@ Map<String, dynamic> colors = {
 };
 
 AppSetup appSetup = AppSetup(
-    homepageSetup: homepage, contactSetup: contactSetup, colorMap: colors);
+    homepageSetup: homepage, contactSetup: contactSetup, colorMap: colors, logoID: "");
