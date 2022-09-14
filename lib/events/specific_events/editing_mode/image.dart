@@ -16,46 +16,75 @@ class ImageEditing extends StatefulWidget {
 }
 
 class _ImageEditingState extends State<ImageEditing> {
+  TextEditingController controllerURL = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(widget.event.imageURL);
     return FutureBuilder(
-        future: getImageURL(widget.event),
-        builder: ((context, snapshot) {
-          DecorationImage decorationImage = DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage(snapshot.data.toString()));
-          return Column(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.width * .6,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  image: decorationImage,
-                  color: getColorFromList(appSetup.colorMap["colorThird"]),
+      future: getImageURL(widget.event),
+      builder: ((context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text("Error"),
+            );
+          } else if (snapshot.hasData) {
+            DecorationImage decorationImage = DecorationImage(
+                image: NetworkImage(
+                  snapshot.data as String,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary:
-                            getColorFromList(appSetup.colorMap["colorSecond"])),
-                    onPressed: () {
-                      replaceImageInStorage(widget.event.id).then(
-                        (value) {
-                          setState(() {});
-                        },
-                      );
-                    },
-                    child: Text(
-                      "Change Photo",
-                      style: styleSubtitle.apply(
-                          color: getColorFromList(
-                              appSetup.colorMap["colorFourth"])),
-                    )),
-              ),
-            ],
-          );
-        }));
+                fit: BoxFit.cover);
+            return Column(
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.width * .6,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    image: decorationImage,
+                    color: getColorFromList(appSetup.colorMap["colorThird"]),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: TextField(
+                    style: styleBody,
+                    controller: controllerURL,
+                    decoration: InputDecoration(
+                        labelText: "URL", labelStyle: styleBody),
+                    onEditingComplete: (() {
+                      widget.event.imageURL =
+                          driveURLToImageID(controllerURL.text);
+                      controllerURL.clear();
+                      setState(() {
+                        
+                      });
+                    }),
+                  ),
+                ),
+                Text(
+                  "Image ID:  ${widget.event.imageURL}",
+                  style: styleBody.apply(fontSizeDelta: -3),
+                ),
+                Text(
+                  "Change Photo",
+                  style: styleSubtitle.apply(
+                      color: getColorFromList(
+                          appSetup.colorMap["colorFourth"])),
+                ),
+              ],
+            );
+          }
+        }
+
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }),
+    );
   }
 }

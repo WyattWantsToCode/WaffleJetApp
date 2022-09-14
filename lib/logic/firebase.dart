@@ -4,13 +4,12 @@ import 'package:qc_collegeandcareer/logic/appsetup.dart';
 var db = FirebaseFirestore.instance;
 
 Event mockEventOne = Event(
-  id: "no image yet.jpg",
-  title: "Crew night",
-  startTime: DateTime.utc(2022, 7, 17, 0, 0),
-  description: "description",
-  tag: "Tag1",
-  imageURL: "No URL"
-);
+    id: "no image yet.jpg",
+    title: "Crew night",
+    startTime: DateTime.utc(2022, 7, 17, 0, 0),
+    description: "description",
+    tag: "Tag1",
+    imageURL: "No URL");
 
 class Event {
   String id;
@@ -47,7 +46,7 @@ void updateEventOnDB(Event event) {
   db.collection("Events").doc(event.id).update(eventToMap(event));
 }
 
-void addEventToDB(Event event){
+void addEventToDB(Event event) {
   db.collection("Events").doc(event.id).set(eventToMap(event));
 }
 
@@ -58,13 +57,12 @@ Event mapToEvent(Map<String, dynamic> map) {
         map["startTime"].microsecondsSinceEpoch);
   }
   return Event(
-    id: map["id"],
-    title: map["title"],
-    startTime: time,
-    description: map["description"],
-    tag: map["tag"],
-    imageURL: map["imageURL"]
-  );
+      id: map["id"],
+      title: map["title"],
+      startTime: time,
+      description: map["description"],
+      tag: map["tag"],
+      imageURL: map["imageURL"]);
 }
 
 Future<List<Event>> getAllEventsFromDB() async {
@@ -124,8 +122,13 @@ Future<AppSetup> getAppSetupFromDB() async {
         homepageSetup: value.data()!["homepage"],
         contactSetup: value.data()!["contactpage"],
         colorMap: value.data()!["colorPallet"],
-        logoID: value.data()!["logoID"]
-        );
+        logoID: value.data()!["logoID"]);
   });
   return appSetup;
+}
+
+String driveURLToImageID(String driveURL) {
+  List<String> list = driveURL.split("/");
+  
+  return list[5];
 }
