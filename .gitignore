@@ -48,4 +48,4 @@ app.*.map.json
 
 /.VSCodeCounter
 
-lib\logic\firebase_options.dart
+/lib/logic/firebase_options.dart
